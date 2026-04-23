@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(cp webfetch-1776932272510-4urlnw.bin design.tar.gz)",
+      "Bash(tar -tzf design.tar.gz)",
+      "Bash(tar -xzf design.tar.gz -C /tmp/design_extract)",
+      "Read(//tmp/**)",
+      "Bash(mkdir -p /tmp/design_extract)",
+      "Bash(tar -xzf /Users/mariuswigge/.claude/projects/-Users-mariuswigge-Development-claude-leos-bergwelt-impeccable/388fd7b3-c26d-4f2d-b14a-7abcb868ec84/tool-results/design.tar.gz)",
+      "Read(//private/tmp/design_extract/leos-bergwelt/project/assets/**)",
+      "Read(//private/tmp/design_extract/leos-bergwelt/project/uploads/**)",
+      "Bash(cp /tmp/design_extract/leos-bergwelt/project/assets/logo-full.png /Users/mariuswigge/Development/claude/leos-bergwelt-impeccable/assets/)",
+      "Bash(cp /tmp/design_extract/leos-bergwelt/project/assets/logo-mark.png /Users/mariuswigge/Development/claude/leos-bergwelt-impeccable/assets/)",
+      "Bash(cp /tmp/design_extract/leos-bergwelt/project/uploads/* /Users/mariuswigge/Development/claude/leos-bergwelt-impeccable/uploads/)",
+      "Bash(python3 -c ' *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx skills *)",
+      "Bash(node .agents/skills/impeccable/scripts/cleanup-deprecated.mjs)",
+      "WebFetch(domain:luxestay.framer.website)",
+      "Bash(npx impeccable *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
