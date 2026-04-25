@@ -520,7 +520,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   font-size: clamp(17px, 1.5vw, 21px); text-align: right;
   padding: 9px 0; white-space: nowrap; align-self: center;
   border-top: 1px solid oklch(0.95 0.01 85 / .12);
-  color: var(--ember-soft);
+  color: oklch(0.95 0.01 85);
 }
 .prices__unit {
   font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
@@ -711,12 +711,38 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 @media (max-width: 680px) {
   /* Slider arrows always visible on touch screens */
   .slider__prev, .slider__next { opacity: 0.75; }
-  .hero__foot { grid-template-columns: 1fr; }
-  .hero__foot .foot__right { text-align: left; align-items: flex-start; }
+
+  /* Hero footer: hide weather + season cols on mobile, only show scroll indicator */
+  .hero__foot { grid-template-columns: 1fr; justify-items: start; }
+  .hero__foot .foot__col:not(.foot__scroll) { display: none; }
   .hero__foot .foot__scroll { justify-content: flex-start; }
+
+  /* Rotating mark: less vertical padding on mobile so it doesn't dominate */
+  .markband { padding-top: clamp(24px, 4vw, 40px); padding-bottom: clamp(18px, 3vw, 32px); }
+  .markband__mark { width: clamp(56px, 13vw, 80px); }
+
+  /* Facts grid: single column, each stat as a horizontal row */
+  .intro__facts {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+    gap: 0;
+  }
+  .intro__facts li {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fact__n { font-size: clamp(20px, 5.5vw, 26px); }
+  .fact__l { text-align: right; max-width: 50%; }
+
+  /* Stay head: stack eyebrow above title instead of side-by-side */
+  .stay__head { grid-template-columns: 1fr; gap: 18px; }
+
   .stay__grid { grid-template-columns: 1fr; }
   .stay__grid .room { margin-top: 0 !important; }
-  .intro__facts { grid-template-columns: 1fr 1fr; }
   .foot__grid { grid-template-columns: 1fr; }
   .ritem { grid-template-columns: 60px 1fr; }
   .ritem__meta { grid-column: 2; }
