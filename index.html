@@ -112,6 +112,93 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .nav--scrolled .nav__cta:hover { color: var(--bg); }
 .nav__cta:hover svg { transform: translateX(3px); }
 
+/* ===== HAMBURGER BUTTON ===== */
+.nav__burger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 36px; height: 36px; padding: 6px;
+  cursor: pointer; flex-shrink: 0;
+}
+.burger__line {
+  display: block; width: 20px; height: 1.5px;
+  background: currentColor; border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1),
+              opacity 0.3s ease, width 0.3s ease;
+}
+.nav__burger.is-open .burger__line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__burger.is-open .burger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__burger.is-open .burger__line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ===== MOBILE MENU OVERLAY ===== */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 48;
+  background: oklch(0.11 0.028 145);
+  color: oklch(0.95 0.01 85);
+  /* Expand from where the hamburger sits — top right */
+  clip-path: circle(0% at calc(100% - 38px) 38px);
+  transition: clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: clamp(32px, 8vw, 80px) var(--pad);
+  overflow: hidden;
+}
+.mobile-menu.is-open {
+  clip-path: circle(200% at calc(100% - 38px) 38px);
+  pointer-events: all;
+}
+
+/* Stagger the link reveals */
+.mobile-menu__nav {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-bottom: clamp(40px, 8vw, 64px);
+}
+.mobile-menu__item {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: clamp(14px, 3vw, 20px) 0;
+  border-bottom: 1px solid oklch(0.95 0.01 85 / .1);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.18s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.32s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.39s; opacity: 1; transform: none; }
+.mobile-menu__num {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+  color: oklch(0.95 0.01 85 / .35); min-width: 28px;
+}
+.mobile-menu__link {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(36px, 9vw, 58px); line-height: 1;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+.mobile-menu__link:hover { color: var(--ember); transform: translateX(6px); }
+
+.mobile-menu__foot {
+  display: flex; flex-direction: column; gap: 20px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.45s ease 0.46s, transform 0.45s ease 0.46s;
+}
+.mobile-menu.is-open .mobile-menu__foot { opacity: 1; transform: none; }
+.mobile-menu__cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1px solid oklch(0.95 0.01 85 / .4); border-radius: 999px;
+  padding: 12px 20px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  align-self: flex-start;
+}
+.mobile-menu__cta:hover { background: var(--ember); border-color: var(--ember); }
+.mobile-menu__cta svg { width: 14px; height: 14px; }
+.mobile-menu__loc {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: oklch(0.95 0.01 85 / .3);
+}
+
 /* ===== HERO ===== */
 .hero {
   position: relative;
@@ -447,6 +534,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   text-wrap: balance;
 }
 .quote blockquote em { font-style: italic; color: var(--ember); }
+.q-em {
+  font-family: var(--mono); font-size: 0.68em; font-style: normal;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--stone); font-weight: 500;
+}
 .quote figcaption {
   margin-top: 32px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--stone);
@@ -695,6 +787,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .nav__links { display: none; }
+  .nav__cta { margin-left: auto; } /* push CTA+burger to right when desktop links hidden */
+  .nav__burger { display: flex; }
   .intro__grid {
     grid-template-columns: 1fr;
     grid-template-areas: "eyebrow" "title" "body" "facts";
@@ -735,8 +829,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     padding: 16px 0;
     border-bottom: 1px solid var(--line);
   }
-  .fact__n { font-size: clamp(20px, 5.5vw, 26px); }
-  .fact__l { text-align: right; max-width: 50%; }
+  .fact__n { font-size: clamp(20px, 5.5vw, 26px); flex-shrink: 0; }
+  .fact__l { text-align: right; flex: 1; min-width: 0; }
 
   /* Stay head: stack eyebrow above title instead of side-by-side */
   .stay__head { grid-template-columns: 1fr; gap: 18px; }
@@ -769,8 +863,42 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <span>Verfügbarkeit</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
+    <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
   </div>
 </header>
+
+<!-- ========== MOBILE MENU ========== -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+  <nav class="mobile-menu__nav">
+    <div class="mobile-menu__item">
+      <span class="mobile-menu__num">01</span>
+      <a class="mobile-menu__link" href="#stay">Aufenthalt</a>
+    </div>
+    <div class="mobile-menu__item">
+      <span class="mobile-menu__num">02</span>
+      <a class="mobile-menu__link" href="#region">Region</a>
+    </div>
+    <div class="mobile-menu__item">
+      <span class="mobile-menu__num">03</span>
+      <a class="mobile-menu__link" href="#journal">Journal</a>
+    </div>
+    <div class="mobile-menu__item">
+      <span class="mobile-menu__num">04</span>
+      <a class="mobile-menu__link" href="#contact">Kontakt</a>
+    </div>
+  </nav>
+  <div class="mobile-menu__foot">
+    <a class="mobile-menu__cta" href="#book">
+      <span>Verfügbarkeit prüfen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <span class="mobile-menu__loc">47° 24′ N · 10° 16′ E · Oberstdorf, Allgäu</span>
+  </div>
+</div>
 
 <main id="top">
 
@@ -1023,7 +1151,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <section class="quote reveal">
   <figure>
     <blockquote>
-      <p>„Ein Ort, an dem man zur Ruhe kommt. Und sich wieder auf das Wesentliche besinnt."</p>
+      <p>„Ein Ort, an dem man <span class="q-em">zur Ruhe kommt.</span> Und sich wieder auf das <span class="q-em">Wesentliche</span> besinnt."</p>
     </blockquote>
     <figcaption>— aus dem Gästebuch, Eintrag vom 14. März</figcaption>
   </figure>
@@ -1223,6 +1351,42 @@ document.querySelectorAll('[data-slider]').forEach(slider => {
   slider.querySelector('.slider__prev').addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
   slider.querySelector('.slider__next').addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
   dots.forEach((dot, i) => dot.addEventListener('click', (e) => { e.stopPropagation(); goTo(i); }));
+});
+
+// ===== MOBILE MENU =====
+const burger = document.getElementById('navBurger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+const openMenu = () => {
+  mobileMenu.classList.add('is-open');
+  burger.classList.add('is-open');
+  burger.setAttribute('aria-expanded', 'true');
+  burger.setAttribute('aria-label', 'Menü schließen');
+  mobileMenu.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+};
+
+const closeMenu = () => {
+  mobileMenu.classList.remove('is-open');
+  burger.classList.remove('is-open');
+  burger.setAttribute('aria-expanded', 'false');
+  burger.setAttribute('aria-label', 'Menü öffnen');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+};
+
+burger.addEventListener('click', () => {
+  mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu();
+});
+
+// Close on any nav link click
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
 });
 </script>
 </body>
