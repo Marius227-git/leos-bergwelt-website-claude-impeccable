@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Die Zimmer — Leos Bergwelt Oberstdorf</title>
+<meta name="description" content="Drei liebevoll gestaltete Doppelzimmer in Tiefenbach bei Oberstdorf. Enzian, Zitronenfalter und Steinbock — jedes mit eigenem Charakter."/>
+<link rel="icon" href="assets/images/logo/leos_bergwelt_favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<style>
+/* ===== TOKENS ===== */
+:root {
+  --bg: oklch(0.97 0.005 85);
+  --bg-warm: oklch(0.94 0.008 82);
+  --ink: oklch(0.20 0.015 150);
+  --ink-soft: oklch(0.32 0.012 140);
+  --stone: oklch(0.40 0.010 95);
+  --stone-soft: oklch(0.72 0.006 90);
+  --line: oklch(0.85 0.008 85);
+  --line-strong: oklch(0.78 0.01 85);
+  --ember: oklch(0.55 0.09 55);
+  --ember-soft: oklch(0.70 0.06 60);
+  --serif: 'Spectral', Georgia, serif;
+  --sans: 'Barlow', system-ui, sans-serif;
+  --mono: 'Chivo Mono', 'Courier New', monospace;
+  --ease: cubic-bezier(0.34, 0, 0.14, 1);
+  --maxw: 1280px;
+  --pad: clamp(20px, 4vw, 64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans); font-size: 16px; font-weight: 400;
+  line-height: 1.6; background: var(--bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; }
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: 18px var(--pad);
+  transition: background .5s var(--ease), backdrop-filter .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);
+  border-bottom: 1px solid transparent;
+  color: oklch(0.96 0.008 85);
+}
+.nav--scrolled {
+  background: color-mix(in oklab, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.2) blur(12px);
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+  border-bottom-color: var(--line);
+  color: var(--ink);
+}
+.nav__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: center; gap: 32px;
+}
+.nav__mark { display: flex; align-items: center; gap: 10px; }
+.nav__logo {
+  display: block; width: auto; height: clamp(44px, 5.6vw, 64px);
+  transform-origin: left center;
+  filter: brightness(0) invert(1);
+  transition: filter .5s var(--ease);
+}
+.nav--scrolled .nav__logo { filter: none; }
+.nav__links {
+  display: flex; gap: 28px; margin-left: auto;
+  font-size: 13.5px; letter-spacing: .04em;
+}
+.nav__links a { position: relative; padding: 4px 0; }
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease);
+}
+.nav__links a:hover::after,
+.nav__links a[aria-current="page"]::after { transform: scaleX(1); }
+.nav__links a[aria-current="page"]::after { opacity: .5; }
+.nav__cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid currentColor; border-radius: 999px;
+  padding: 9px 16px 9px 18px; font-size: 13px; letter-spacing: .04em;
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+.nav__cta svg { width: 14px; height: 14px; transition: transform .35s var(--ease); }
+.nav__cta:hover { background: var(--ember); border-color: var(--ember); color: oklch(0.97 0.01 85); }
+.nav--scrolled .nav__cta:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.nav__cta:hover svg { transform: translateX(3px); }
+
+/* ===== HAMBURGER ===== */
+.nav__burger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 36px; height: 36px; padding: 6px;
+  cursor: pointer; flex-shrink: 0;
+}
+.burger__line {
+  display: block; width: 20px; height: 1.5px;
+  background: currentColor; border-radius: 2px; transform-origin: center;
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.3s ease;
+}
+.nav__burger.is-open .burger__line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__burger.is-open .burger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__burger.is-open .burger__line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 48;
+  background: oklch(0.11 0.028 145);
+  color: oklch(0.95 0.01 85);
+  clip-path: circle(0% at calc(100% - 38px) 38px);
+  transition: clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: clamp(32px, 8vw, 80px) var(--pad);
+  overflow: hidden;
+}
+.mobile-menu.is-open { clip-path: circle(200% at calc(100% - 38px) 38px); pointer-events: all; }
+.mobile-menu__nav { display: flex; flex-direction: column; gap: 4px; margin-bottom: clamp(40px, 8vw, 64px); }
+.mobile-menu__item {
+  display: flex; align-items: baseline;
+  padding: clamp(14px, 3vw, 20px) 0;
+  border-bottom: 1px solid oklch(0.95 0.01 85 / .1);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.18s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.32s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.39s; opacity: 1; transform: none; }
+.mobile-menu__link {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(36px, 9vw, 58px); line-height: 1; letter-spacing: -0.02em;
+  transition: color 0.3s ease, transform 0.3s ease; display: block;
+}
+.mobile-menu__link:hover { color: var(--ember); transform: translateX(6px); }
+.mobile-menu__foot {
+  display: flex; flex-direction: column; gap: 20px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.45s ease 0.46s, transform 0.45s ease 0.46s;
+}
+.mobile-menu.is-open .mobile-menu__foot { opacity: 1; transform: none; }
+.mobile-menu__cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid oklch(0.95 0.01 85 / .4); border-radius: 999px; padding: 12px 20px;
+  transition: background 0.3s ease, border-color 0.3s ease; align-self: flex-start;
+}
+.mobile-menu__cta:hover { background: var(--ember); border-color: var(--ember); }
+.mobile-menu__cta svg { width: 14px; height: 14px; }
+.mobile-menu__loc {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: oklch(0.95 0.01 85 / .3);
+}
+
+/* ===== SHARED UTILITIES ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  border-radius: 999px; padding: 12px 22px 12px 24px;
+  font-size: 13.5px; letter-spacing: .04em;
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+  border: 1px solid transparent;
+}
+.btn svg { width: 15px; height: 15px; transition: transform .4s var(--ease); }
+.btn:hover svg { transform: translateX(4px); }
+.btn--primary { background: var(--ink); color: var(--bg); }
+.btn--primary:hover { background: var(--ember); }
+
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ===== PAGE HERO ===== */
+.ph {
+  position: relative;
+  height: clamp(480px, 55vh, 680px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden; color: oklch(0.97 0.01 85);
+}
+.ph__media { position: absolute; inset: 0; z-index: 0; }
+.ph__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,6,4,.25) 0%, rgba(8,6,4,.05) 40%, rgba(8,6,4,.6) 100%);
+}
+.ph__frame {
+  position: relative; z-index: 1;
+  max-width: var(--maxw); width: 100%; margin: 0 auto;
+  padding: 0 var(--pad) clamp(40px, 6vw, 72px);
+}
+.ph__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: oklch(0.95 0.01 85 / .65); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 14px;
+}
+.ph__eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--ember-soft); }
+.ph__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(48px, 8vw, 110px);
+  line-height: .93; letter-spacing: -0.025em; margin-bottom: 18px;
+}
+.ph__title em { font-style: italic; color: var(--ember-soft); }
+.ph__sub {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(16px, 1.6vw, 20px); color: oklch(0.95 0.01 85 / .72);
+  max-width: 50ch;
+}
+
+/* ===== FACTS BAR ===== */
+.facts-bar {
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--line);
+}
+.facts-bar__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: clamp(36px, 5vw, 60px) var(--pad);
+}
+.facts-bar__grid {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(4, auto);
+  justify-content: center; gap: clamp(28px, 5vw, 72px);
+  padding-top: 32px; border-top: 1px solid var(--line);
+}
+.facts-bar__item { display: flex; flex-direction: column; gap: 5px; }
+.fb__num {
+  font-family: var(--serif); font-size: clamp(26px, 2.8vw, 40px);
+  font-weight: 300; letter-spacing: -0.01em; line-height: 1;
+  color: var(--ember);
+}
+.fb__label {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--stone);
+}
+.fb__sublabel {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--stone-soft);
+}
+/* Highlighted shared-use item */
+.facts-bar__item--shared {
+  background: oklch(0.97 0.012 55 / .35);
+  border: 1px solid oklch(0.70 0.06 60 / .45);
+  border-radius: 10px; padding: 14px 18px; gap: 4px;
+}
+.facts-bar__item--shared .fb__label { color: var(--ember); }
+.facts-bar__item--shared .fb__num { color: var(--ember); }
+.fb__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ember-soft); margin-top: 4px;
+}
+.fb__badge::before { content: "!"; display: block; font-size: 10px; font-weight: 500; }
+.facts-bar__note {
+  margin-top: clamp(20px, 3vw, 32px);
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(14px, 1.3vw, 16px); color: var(--ink-soft);
+  text-align: center; max-width: 64ch; margin-inline: auto;
+}
+
+/* ===== ROOM SECTIONS ===== */
+.room-section {
+  border-bottom: 1px solid var(--line);
+  padding: clamp(64px, 10vw, 130px) var(--pad);
+}
+.room-section__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 55fr 45fr;
+  gap: clamp(40px, 5vw, 80px); align-items: start;
+}
+.room-section__inner--reverse { grid-template-columns: 45fr 55fr; }
+.room-section__inner--reverse .room-section__gallery { order: 2; }
+.room-section__inner--reverse .room-section__info { order: 1; }
+
+/* Gallery */
+.room-section__lead {
+  aspect-ratio: 4 / 3; overflow: hidden; border-radius: 3px;
+  background: var(--line); contain: layout; position: relative;
+}
+.room-section__lead img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.9s var(--ease);
+}
+.room-section__lead:hover img { transform: scale(1.04); }
+.room-section__thumbs {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 6px; margin-top: 6px;
+}
+.room-section__thumb {
+  aspect-ratio: 1; overflow: hidden; border-radius: 2px;
+  background: var(--line); contain: layout; cursor: pointer;
+}
+.room-section__thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s var(--ease), opacity 0.3s;
+}
+.room-section__thumb:hover img { transform: scale(1.1); opacity: .85; }
+
+/* Info panel */
+.room-section__info { position: sticky; top: 96px; }
+.room-section__idx {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ember); margin-bottom: 6px;
+}
+.room-section__name {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: .95; letter-spacing: -0.02em; margin-bottom: 6px;
+}
+.room-section__tagline {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(15px, 1.4vw, 18px); color: var(--ink-soft); margin-bottom: 26px;
+}
+.room-section__desc {
+  font-size: 15.5px; line-height: 1.72; color: var(--ink-soft);
+  margin-bottom: 32px; max-width: 42ch;
+}
+.room-section__features {
+  list-style: none; border-top: 1px solid var(--line); margin-bottom: 32px;
+}
+.room-section__feature {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+}
+.feature__label { color: var(--stone); font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; }
+.feature__val { font-family: var(--serif); font-weight: 400; font-size: 15px; }
+.room-section__price {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 28px;
+}
+.price__from { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); }
+.price__num { font-family: var(--serif); font-size: clamp(30px, 3vw, 42px); font-weight: 300; letter-spacing: -0.01em; }
+.price__unit { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--stone); }
+
+/* ===== SHARED SPACES ===== */
+.shared {
+  background: oklch(0.14 0.024 148);
+  color: oklch(0.95 0.01 85);
+  padding: clamp(80px, 12vw, 160px) var(--pad);
+}
+.shared__inner { max-width: var(--maxw); margin: 0 auto; }
+.shared__head { margin-bottom: clamp(48px, 7vw, 80px); }
+.shared__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: oklch(0.88 0.01 85 / .45); margin-bottom: 22px;
+  display: flex; align-items: center; gap: 14px;
+}
+.shared__eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--ember-soft); }
+.shared__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(34px, 4.5vw, 62px);
+  line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 18px; max-width: 18ch;
+}
+.shared__title em { font-style: italic; color: var(--ember-soft); }
+.shared__sub {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(15px, 1.5vw, 18px); color: oklch(0.88 0.01 85 / .62); max-width: 54ch;
+  margin-bottom: 24px;
+}
+.shared__callout {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ember-soft);
+  border: 1px solid oklch(0.70 0.06 60 / .5); border-radius: 999px; padding: 10px 18px;
+}
+.shared__callout svg { flex-shrink: 0; }
+.shared__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.5vw, 32px);
+}
+.shared__card { display: flex; flex-direction: column; gap: 16px; }
+.shared__img {
+  aspect-ratio: 4 / 3; overflow: hidden; border-radius: 3px; contain: layout;
+  background: oklch(0.10 0.02 145);
+}
+.shared__img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.8s var(--ease); opacity: .9;
+}
+.shared__card:hover .shared__img img { transform: scale(1.05); opacity: 1; }
+.shared__card-title {
+  font-family: var(--serif); font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 300; letter-spacing: -0.01em;
+}
+.shared__card-desc {
+  font-size: 14px; line-height: 1.68; color: oklch(0.88 0.01 85 / .6);
+}
+
+/* ===== BOOKING CTA ===== */
+.book {
+  position: relative; min-height: 520px;
+  display: grid; align-items: center;
+  padding: clamp(80px, 12vw, 140px) var(--pad);
+  overflow: hidden; color: oklch(0.95 0.01 85);
+}
+.book__media { position: absolute; inset: 0; z-index: 0; }
+.book__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(8,6,4,.84) 0%, rgba(8,6,4,.52) 60%, rgba(8,6,4,.32) 100%);
+}
+.book__media img { width: 100%; height: 100%; object-fit: cover; }
+.book__panel {
+  position: relative; z-index: 1; max-width: var(--maxw); width: 100%; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 20px; align-items: flex-start; max-width: 48ch;
+}
+.book__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: oklch(0.88 0.01 85 / .5); display: flex; align-items: center; gap: 14px;
+}
+.book__eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--ember-soft); }
+.book__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(36px, 4.5vw, 68px); line-height: .96; letter-spacing: -0.025em;
+}
+.book__title em { font-style: italic; color: var(--ember-soft); }
+.book__sub {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(15px, 1.4vw, 17px); color: oklch(0.88 0.01 85 / .68);
+}
+.book__btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: oklch(0.97 0.01 85); color: var(--ink);
+  border-radius: 999px; padding: 14px 26px 14px 28px;
+  font-size: 13.5px; letter-spacing: .04em; margin-top: 8px;
+  transition: background .35s var(--ease), color .35s var(--ease);
+}
+.book__btn:hover { background: var(--ember); color: oklch(0.97 0.01 85); }
+.book__btn svg { width: 15px; height: 15px; transition: transform .4s var(--ease); }
+.book__btn:hover svg { transform: translateX(4px); }
+
+/* ===== FOOTER ===== */
+.foot {
+  background: var(--bg);
+  padding: clamp(60px, 8vw, 100px) var(--pad) 0;
+}
+.foot__grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(32px, 4vw, 72px);
+  padding-bottom: clamp(60px, 8vw, 96px);
+  border-bottom: 1px solid var(--line);
+}
+.foot__brand { display: flex; flex-direction: column; gap: 22px; max-width: 42ch; }
+.foot__logo { width: auto; height: 96px; display: block; object-fit: contain; object-position: left center; max-width: 200px; }
+.foot__tag { font-family: var(--serif); font-size: 17px; font-weight: 300; line-height: 1.55; color: var(--ink-soft); }
+.foot__tag em { font-style: italic; }
+.foot__col-nav { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.foot__h { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+.foot__col-nav a { color: var(--ink-soft); transition: color .3s var(--ease); }
+.foot__col-nav a:hover { color: var(--ember); }
+.foot__base {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  padding: 20px 0 28px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--stone-soft);
+}
+.foot__spacer { margin-left: auto; }
+.foot__base a { transition: color .3s var(--ease); }
+.foot__base a:hover { color: var(--ink); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .nav__links { display: none; }
+  .nav__cta { margin-left: auto; }
+  .nav__burger { display: flex; }
+  .room-section__inner { grid-template-columns: 1fr; }
+  .room-section__inner--reverse .room-section__gallery,
+  .room-section__inner--reverse .room-section__info { order: unset; }
+  .room-section__info { position: static; }
+  .shared__grid { grid-template-columns: 1fr 1fr; }
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+  .facts-bar__grid { grid-template-columns: repeat(2, auto); gap: clamp(20px, 4vw, 48px); }
+}
+@media (max-width: 680px) {
+  .nav__cta span { display: none; }
+  .nav__cta { padding: 9px 12px; }
+  .nav__logo { height: 56px; }
+  .facts-bar__grid { grid-template-columns: 1fr 1fr; }
+  .shared__grid { grid-template-columns: 1fr; }
+  .foot__grid { grid-template-columns: 1fr; }
+  .room-section__thumbs { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__mark" href="index.html" aria-label="Leos Bergwelt — Startseite">
+      <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
+    </a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a href="index.html">Startseite</a>
+      <a href="zimmer.html" aria-current="page">Die Zimmer</a>
+      <a href="index.html#region">Region</a>
+      <a href="index.html#contact">Kontakt</a>
+    </nav>
+    <a class="nav__cta" href="index.html#book">
+      <span>Verfügbarkeit</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+  <nav class="mobile-menu__nav">
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html">Startseite</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="zimmer.html">Die Zimmer</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#region">Region</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#contact">Kontakt</a></div>
+  </nav>
+  <div class="mobile-menu__foot">
+    <a class="mobile-menu__cta" href="index.html#book">
+      <span>Verfügbarkeit prüfen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <span class="mobile-menu__loc">Oberstdorf, Allgäu</span>
+  </div>
+</div>
+
+<main>
+
+<!-- ========== PAGE HERO ========== -->
+<section class="ph">
+  <div class="ph__media">
+    <img src="assets/images/hero/Rubihorn_Oberstdorf_Airbnb_Tiefenbach_Breitachklamm_2.webp" alt="Berge bei Oberstdorf" fetchpriority="high" />
+  </div>
+  <div class="ph__frame">
+    <p class="ph__eyebrow">Leos Bergwelt · Tiefenbach bei Oberstdorf</p>
+    <h1 class="ph__title">Die drei<br><em>Zimmer.</em></h1>
+    <p class="ph__sub">Jedes mit eigenem Charakter. Eine Etage, drei Perspektiven auf die Allgäuer Berge.</p>
+  </div>
+</section>
+
+<!-- ========== FACTS BAR ========== -->
+<section class="facts-bar">
+  <div class="facts-bar__inner">
+    <ul class="facts-bar__grid">
+      <li class="facts-bar__item">
+        <span class="fb__num">3</span>
+        <span class="fb__label">Doppelzimmer</span>
+        <span class="fb__sublabel">Gemütlich &amp; modern</span>
+      </li>
+      <li class="facts-bar__item facts-bar__item--shared">
+        <span class="fb__num">Küche &amp; Bad</span>
+        <span class="fb__label">Gemeinschaftlich genutzt</span>
+        <span class="fb__badge">Alle 3 Zimmer teilen die Etage</span>
+      </li>
+      <li class="facts-bar__item">
+        <span class="fb__num">11 Min.</span>
+        <span class="fb__label">nach Oberstdorf</span>
+        <span class="fb__sublabel">mit dem Auto</span>
+      </li>
+      <li class="facts-bar__item">
+        <span class="fb__num">4 Min.</span>
+        <span class="fb__label">Bushaltestelle</span>
+        <span class="fb__sublabel">zu Fuß</span>
+      </li>
+    </ul>
+    <p class="facts-bar__note">Küche und Bad werden gemeinschaftlich von allen Gästen der Etage genutzt — bitte bei der Planung berücksichtigen.</p>
+  </div>
+</section>
+
+<!-- ========== ZIMMER I: ENZIAN ========== -->
+<section class="room-section reveal" id="enzian">
+  <div class="room-section__inner">
+    <div class="room-section__gallery">
+      <div class="room-section__lead">
+        <img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_1.webp" alt="Zimmer Enzian — Hauptansicht" loading="lazy" />
+      </div>
+      <div class="room-section__thumbs">
+        <div class="room-section__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_2.webp" alt="Zimmer Enzian" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_3.webp" alt="Zimmer Enzian" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_4.webp" alt="Zimmer Enzian" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_5.webp" alt="Zimmer Enzian" loading="lazy" /></div>
+      </div>
+    </div>
+    <div class="room-section__info">
+      <p class="room-section__idx">Nr. I</p>
+      <h2 class="room-section__name">Enzian</h2>
+      <p class="room-section__tagline">Ruhig. Geerdet. Mit Gartenblick.</p>
+      <p class="room-section__desc">Ein gemütliches Doppelzimmer im Erdgeschoss. Natürliche Materialien, warme Atmosphäre — ideal für alle, die nach einem langen Wandertag einfach ankommen wollen.</p>
+      <ul class="room-section__features">
+        <li class="room-section__feature">
+          <span class="feature__label">Bett</span>
+          <span class="feature__val">Doppelbett 160 × 200 cm</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Etage</span>
+          <span class="feature__val">Erdgeschoss</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Aussicht</span>
+          <span class="feature__val">Gartenblick</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">WLAN</span>
+          <span class="feature__val">Kostenlos</span>
+        </li>
+      </ul>
+      <div class="room-section__price">
+        <span class="price__from">ab</span>
+        <span class="price__num">53 €</span>
+        <span class="price__unit">/ Nacht</span>
+      </div>
+      <a class="btn btn--primary" href="index.html#book">
+        <span>Jetzt buchen</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ZIMMER II: ZITRONENFALTER ========== -->
+<section class="room-section reveal" id="zitronenfalter">
+  <div class="room-section__inner room-section__inner--reverse">
+    <div class="room-section__gallery">
+      <div class="room-section__lead">
+        <img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_1.webp" alt="Zimmer Zitronenfalter — Hauptansicht" loading="lazy" />
+      </div>
+      <div class="room-section__thumbs">
+        <div class="room-section__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_2.webp" alt="Zimmer Zitronenfalter" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_3.webp" alt="Zimmer Zitronenfalter" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_4.webp" alt="Zimmer Zitronenfalter" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_5.webp" alt="Zimmer Zitronenfalter" loading="lazy" /></div>
+      </div>
+    </div>
+    <div class="room-section__info">
+      <p class="room-section__idx">Nr. II</p>
+      <h2 class="room-section__name">Zitronenfalter</h2>
+      <p class="room-section__tagline">Hell. Sonnig. Voller Morgenlicht.</p>
+      <p class="room-section__desc">Das hellste Zimmer der Etage. Große Fenster, warmes Licht — perfekt für Paare, die den Tag früh beginnen und die Berge in der Morgensonne genießen wollen.</p>
+      <ul class="room-section__features">
+        <li class="room-section__feature">
+          <span class="feature__label">Bett</span>
+          <span class="feature__val">Doppelbett 160 × 200 cm</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Etage</span>
+          <span class="feature__val">1. Obergeschoss</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Aussicht</span>
+          <span class="feature__val">Bergblick</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">WLAN</span>
+          <span class="feature__val">Kostenlos</span>
+        </li>
+      </ul>
+      <div class="room-section__price">
+        <span class="price__from">ab</span>
+        <span class="price__num">62 €</span>
+        <span class="price__unit">/ Nacht</span>
+      </div>
+      <a class="btn btn--primary" href="index.html#book">
+        <span>Jetzt buchen</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ZIMMER III: STEINBOCK ========== -->
+<section class="room-section reveal" id="steinbock">
+  <div class="room-section__inner">
+    <div class="room-section__gallery">
+      <div class="room-section__lead">
+        <img src="assets/images/room_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_steinbock_1.webp" alt="Zimmer Steinbock — Hauptansicht" loading="lazy" />
+      </div>
+      <div class="room-section__thumbs">
+        <div class="room-section__thumb"><img src="assets/images/room_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_steinbock_2.webp" alt="Zimmer Steinbock" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_steinbock_3.webp" alt="Zimmer Steinbock" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_steinbock_4.webp" alt="Zimmer Steinbock" loading="lazy" /></div>
+        <div class="room-section__thumb"><img src="assets/images/room_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_steinbock_5.webp" alt="Zimmer Steinbock" loading="lazy" /></div>
+      </div>
+    </div>
+    <div class="room-section__info">
+      <p class="room-section__idx">Nr. III</p>
+      <h2 class="room-section__name">Steinbock</h2>
+      <p class="room-section__tagline">Unter dem Dach. Nah an den Bergen.</p>
+      <p class="room-section__desc">Das Dachzimmer mit Lärchenholz-Schrägen und einem Lesesessel. Am Horizont die Silhouette des Nebelhorns. Für alle, die Ruhe und Höhe suchen.</p>
+      <ul class="room-section__features">
+        <li class="room-section__feature">
+          <span class="feature__label">Bett</span>
+          <span class="feature__val">Doppelbett 160 × 200 cm</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Etage</span>
+          <span class="feature__val">Dachgeschoss</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Aussicht</span>
+          <span class="feature__val">Nebelhorn-Silhouette</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Besonderheit</span>
+          <span class="feature__val">Lesesessel, Lärchenholz</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">WLAN</span>
+          <span class="feature__val">Kostenlos</span>
+        </li>
+      </ul>
+      <div class="room-section__price">
+        <span class="price__from">ab</span>
+        <span class="price__num">62 €</span>
+        <span class="price__unit">/ Nacht</span>
+      </div>
+      <a class="btn btn--primary" href="index.html#book">
+        <span>Jetzt buchen</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GEMEINSCHAFTSRÄUME ========== -->
+<section class="shared reveal">
+  <div class="shared__inner">
+    <div class="shared__head">
+      <p class="shared__eyebrow">Gemeinschaftliche Räume</p>
+      <h2 class="shared__title">Küche &amp; Bad —<br><em>geteilt, nicht allein.</em></h2>
+      <p class="shared__sub">Alle drei Zimmer teilen sich eine vollausgestattete Küche und ein modernes Bad auf der Etage. Ideal für Gruppen oder drei Paare, die zusammen reisen.</p>
+      <span class="shared__callout">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Gemeinschaftlich genutzt — bei der Buchung berücksichtigen
+      </span>
+    </div>
+    <div class="shared__grid">
+      <div class="shared__card reveal">
+        <div class="shared__img">
+          <img src="assets/images/kitchen/IMG_9586.webp" alt="Gemeinschaftsküche" loading="lazy" />
+        </div>
+        <h3 class="shared__card-title">Küche</h3>
+        <p class="shared__card-desc">Vollausgestattet mit Herd, Backofen, Kühlschrank und Kaffeemaschine. Alles, was ihr für entspannte Frühstücke und Abendessen braucht.</p>
+      </div>
+      <div class="shared__card reveal">
+        <div class="shared__img">
+          <img src="assets/images/bathroom/IMG_9658.webp" alt="Gemeinschaftsbad" loading="lazy" />
+        </div>
+        <h3 class="shared__card-title">Bad</h3>
+        <p class="shared__card-desc">Modernes Badezimmer mit Dusche und allem Nötigen. Sauber, funktional und durchdacht gestaltet.</p>
+      </div>
+      <div class="shared__card reveal">
+        <div class="shared__img">
+          <img src="assets/images/hallway/IMG_9666.webp" alt="Flur und Eingang" loading="lazy" />
+        </div>
+        <h3 class="shared__card-title">Flur &amp; Eingang</h3>
+        <p class="shared__card-desc">Großzügiger Flur mit Abstellfläche für Wanderausrüstung, Skischuhe und Gepäck. Praktisch organisiert für Aktivurlauber.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BUCHUNGS-CTA ========== -->
+<section class="book reveal">
+  <div class="book__media">
+    <img src="assets/images/from_outside/IMG_9751.webp" alt="" loading="lazy" />
+  </div>
+  <div class="book__panel">
+    <p class="book__eyebrow">Direkt buchen</p>
+    <h2 class="book__title">Jetzt anfragen.<br><em>Ohne Aufschlag.</em></h2>
+    <p class="book__sub">Direkt beim Gastgeber buchen — ohne Plattformgebühren. Die günstigsten Preise, die du für dieses Haus findest.</p>
+    <a class="book__btn" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+      <span>Verfügbarkeit prüfen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot" id="contact">
+  <div class="foot__grid">
+    <div class="foot__brand">
+      <img class="foot__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
+      <p class="foot__tag"><em>Leos Bergwelt.</em> Entspannte Urlaubstage in den Bergen um Oberstdorf. Drei liebevoll gestaltete Zimmer für deinen perfekten Urlaub in Tiefenbach bei Oberstdorf.</p>
+    </div>
+    <div class="foot__col-nav">
+      <span class="foot__h">Besuchen</span>
+      <a href="zimmer.html">Die Zimmer</a>
+      <a href="index.html#region">Die Region</a>
+      <a href="index.html#book">Preise &amp; Buchung</a>
+      <a href="#">Gutscheine</a>
+    </div>
+    <div class="foot__col-nav">
+      <span class="foot__h">Kontakt</span>
+      <a href="mailto:info@leos-bergwelt.de">info@leos-bergwelt.de</a>
+      <a href="tel:+491234567890">+49 123 456 789</a>
+    </div>
+    <div class="foot__col-nav">
+      <span class="foot__h">Adresse</span>
+      <span style="color:var(--ink-soft);font-size:14px;line-height:1.65;">Tiefenbach<br>87561 Oberstdorf<br>Deutschland</span>
+    </div>
+  </div>
+  <div class="foot__base">
+    <span>© 2025 Leos Bergwelt</span>
+    <span>·</span>
+    <span>Gebaut in den Bergen, gepflegt per Hand.</span>
+    <span class="foot__spacer"></span>
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+  </div>
+</footer>
+
+</main>
+
+<script>
+const nav = document.getElementById('nav');
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+}, { passive: true });
+if (window.scrollY > 40) nav.classList.add('nav--scrolled');
+
+// Reveal on scroll
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Mobile menu
+const burger = document.getElementById('navBurger');
+const mobileMenu = document.getElementById('mobileMenu');
+const openMenu = () => {
+  mobileMenu.classList.add('is-open'); burger.classList.add('is-open');
+  burger.setAttribute('aria-expanded', 'true'); burger.setAttribute('aria-label', 'Menü schließen');
+  mobileMenu.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+};
+const closeMenu = () => {
+  mobileMenu.classList.remove('is-open'); burger.classList.remove('is-open');
+  burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Menü öffnen');
+  mobileMenu.setAttribute('aria-hidden', 'true'); document.body.style.overflow = '';
+};
+burger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
+mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+</body>
+</html>
