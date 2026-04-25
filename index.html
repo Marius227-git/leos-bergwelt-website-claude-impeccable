@@ -81,10 +81,13 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   width: auto;
   height: clamp(44px, 5.6vw, 64px);
   transform-origin: left center;
+  /* Invert to white when nav is over the dark hero */
+  filter: brightness(0) invert(1);
   transition: transform .5s var(--ease), filter .5s var(--ease);
 }
 /* Scale down instead of changing height — keeps compositor-only animation */
-.nav--scrolled .nav__logo { transform: scale(0.74); }
+/* When scrolled: undo invert so logo shows in its natural dark color */
+.nav--scrolled .nav__logo { transform: scale(0.74); filter: none; }
 .nav__links {
   display: flex; gap: 28px; margin-left: auto;
   font-size: 13.5px; letter-spacing: .04em;
@@ -574,7 +577,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   border-bottom: 1px solid var(--line);
 }
 .foot__brand { display: flex; flex-direction: column; gap: 22px; max-width: 42ch; }
-.foot__logo { width: auto; height: 96px; display: block; object-fit: contain; max-width: 180px; }
+.foot__logo { width: auto; height: 96px; display: block; object-fit: contain; object-position: left center; max-width: 200px; }
 .foot__tag { font-family: var(--serif); font-size: 17px; font-weight: 300; line-height: 1.55; margin: 0; color: var(--ink-soft); }
 .foot__tag em { font-style: italic; }
 .foot__col-nav { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
@@ -728,7 +731,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <header class="nav" id="nav">
   <div class="nav__inner">
     <a class="nav__mark" href="#top" aria-label="Leos Bergwelt">
-      <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo.png" alt="Leos Bergwelt" />
+      <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
     </a>
     <nav class="nav__links" aria-label="Hauptnavigation">
       <a href="#stay">Aufenthalt</a>
@@ -1068,7 +1071,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <footer class="foot" id="contact">
   <div class="foot__grid">
     <div class="foot__brand">
-      <img class="foot__logo" src="assets/images/logo/leos_bergwelt_logo.png" alt="Leos Bergwelt" />
+      <img class="foot__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
       <p class="foot__tag"><em>Leos Bergwelt.</em> Entspannte Urlaubstage in den Bergen um Oberstdorf. Drei liebevoll gestaltete Zimmer für deinen perfekten Urlaub in Tiefenbach bei Oberstdorf.</p>
     </div>
 
