@@ -85,9 +85,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   filter: brightness(0) invert(1);
   transition: transform .5s var(--ease), filter .5s var(--ease);
 }
-/* Scale down instead of changing height — keeps compositor-only animation */
 /* When scrolled: undo invert so logo shows in its natural dark color */
-.nav--scrolled .nav__logo { transform: scale(0.74); filter: none; }
+.nav--scrolled .nav__logo { filter: none; }
 .nav__links {
   display: flex; gap: 28px; margin-left: auto;
   font-size: 13.5px; letter-spacing: .04em;
