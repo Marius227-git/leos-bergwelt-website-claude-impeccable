@@ -417,10 +417,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .room:nth-child(3) { margin-top: clamp(20px, 3vw, 40px); }
 
 .room__media {
-  position: relative; aspect-ratio: 4 / 5;
+  position: relative; aspect-ratio: 3 / 2;
   overflow: hidden;
   background: var(--line);
-  /* Explicit aspect-ratio reserves space before images load (prevents CLS) */
   contain: layout;
 }
 .room__meta { display: flex; flex-direction: column; gap: 10px; }
@@ -536,7 +535,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .quote blockquote em { font-style: italic; color: var(--ember); }
 .q-em {
   font-family: var(--serif); font-style: italic;
-  font-weight: 300; color: var(--stone);
+  font-weight: 300; color: var(--ember-soft);
 }
 .quote figcaption {
   margin-top: 32px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
@@ -841,7 +840,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   .ritem__meta { grid-column: 2; }
   .nav__cta span { display: none; }
   .nav__cta { padding: 9px 12px; }
-  .nav__logo { height: 56px; } /* slightly larger on mobile */
+  .nav__logo { height: 56px; }
+  /* Don't shrink logo on mobile when scrolled */
+  .nav--scrolled .nav__logo { transform: none; }
 }
 </style>
 </head>
@@ -1147,7 +1148,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <section class="quote reveal">
   <figure>
     <blockquote>
-      <p>„Ein Ort, an dem man <span class="q-em">zur Ruhe kommt.</span> Und sich wieder auf das <span class="q-em">Wesentliche</span> besinnt."</p>
+      <p>„Ein Ort, an dem man <span class="q-em">zur Ruhe kommt.</span> Und sich wieder auf <span class="q-em">das Wesentliche</span> besinnt."</p>
     </blockquote>
     <figcaption>— aus dem Gästebuch, Eintrag vom 14. März</figcaption>
   </figure>
