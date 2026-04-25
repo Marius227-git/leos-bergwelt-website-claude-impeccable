@@ -7,14 +7,16 @@
 <link rel="icon" href="assets/images/logo/leos_bergwelt_favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Non-blocking font load: renders with fallback immediately, swaps in when ready -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 :root {
   --bg: oklch(0.97 0.005 85);
   --bg-warm: oklch(0.94 0.008 82);
   --ink: oklch(0.20 0.015 150);
   --ink-soft: oklch(0.32 0.012 140);
-  --stone: oklch(0.55 0.008 95);
+  --stone: oklch(0.40 0.010 95);
   --stone-soft: oklch(0.72 0.006 90);
   --line: oklch(0.85 0.008 85);
   --line-strong: oklch(0.78 0.01 85);
@@ -78,9 +80,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   display: block;
   width: auto;
   height: clamp(44px, 5.6vw, 64px);
-  transition: height .5s var(--ease), filter .5s var(--ease);
+  transform-origin: left center;
+  transition: transform .5s var(--ease), filter .5s var(--ease);
 }
-.nav--scrolled .nav__logo { height: clamp(36px, 4.4vw, 48px); }
+/* Scale down instead of changing height — keeps compositor-only animation */
+.nav--scrolled .nav__logo { transform: scale(0.74); }
 .nav__links {
   display: flex; gap: 28px; margin-left: auto;
   font-size: 13.5px; letter-spacing: .04em;
@@ -326,6 +330,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   position: relative; aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--line);
+  /* Explicit aspect-ratio reserves space before images load (prevents CLS) */
+  contain: layout;
 }
 .room__meta { display: flex; flex-direction: column; gap: 10px; }
 .room__idx {
@@ -384,6 +390,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .region__media {
   position: relative; aspect-ratio: 2 / 1;
   overflow: hidden;
+  contain: layout;
 }
 .region__placeholder {
   position: absolute; left: 20px; bottom: 18px;
@@ -400,9 +407,10 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   display: grid; grid-template-columns: 80px 1fr auto; gap: 32px;
   padding: 34px 0; align-items: baseline;
   border-bottom: 1px solid oklch(0.95 0.01 85 / .14);
-  transition: padding .5s var(--ease), background .5s var(--ease);
+  transition: transform .5s var(--ease), background .5s var(--ease);
 }
-.ritem:hover { padding-left: 12px; }
+/* translateX instead of padding-left — compositor-only, no layout reflow */
+.ritem:hover { transform: translateX(12px); }
 .ritem__num {
   font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
   color: var(--ember-soft);
@@ -741,7 +749,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <section class="hero" aria-label="Willkommen">
   <div class="hero__media" data-parallax>
     <div class="hero__img" role="img" aria-label="Allgäuer Berglandschaft bei Oberstdorf">
-      <img class="hero__photo" src="assets/images/hero/Allg%C3%A4u_Oberstdorf_Tiefenbach_Weidach_Unterkunft_Ferienwohnung_Breitachklamm_5.webp" alt="Allgäuer Berglandschaft mit Bergsee bei Oberstdorf" />
+      <img class="hero__photo" src="assets/images/hero/Allg%C3%A4u_Oberstdorf_Tiefenbach_Weidach_Unterkunft_Ferienwohnung_Breitachklamm_5.webp" alt="Allgäuer Berglandschaft mit Bergsee bei Oberstdorf" fetchpriority="high" />
     </div>
   </div>
 
@@ -845,9 +853,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <article class="room reveal">
       <div class="room__media">
         <div class="room__slider" data-slider>
-          <div class="room__slide is-active"><img src="assets/images/rooms_slideshows/slideshow_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_enzian_1.webp" alt="Zimmer Enzian" /></div>
-          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_enzian_2.webp" alt="Zimmer Enzian" /></div>
-          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_enzian_3.webp" alt="Zimmer Enzian" /></div>
+          <div class="room__slide is-active"><img src="assets/images/rooms_slideshows/slideshow_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_enzian_1.webp" alt="Zimmer Enzian — Ansicht 1" loading="lazy" decoding="async" /></div>
+          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_enzian_2.webp" alt="Zimmer Enzian — Ansicht 2" loading="lazy" decoding="async" /></div>
+          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_enzian_3.webp" alt="Zimmer Enzian — Ansicht 3" loading="lazy" decoding="async" /></div>
           <button class="slider__prev" aria-label="Vorheriges Bild">&#8249;</button>
           <button class="slider__next" aria-label="Nächstes Bild">&#8250;</button>
           <div class="slider__dots">
@@ -871,9 +879,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <article class="room reveal">
       <div class="room__media">
         <div class="room__slider" data-slider>
-          <div class="room__slide is-active"><img src="assets/images/rooms_slideshows/slideshow_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_zitronenfalter_1.webp" alt="Zimmer Zitronenfalter" /></div>
-          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_zitronenfalter_2.webp" alt="Zimmer Zitronenfalter" /></div>
-          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_zitronenfalter_3.webp" alt="Zimmer Zitronenfalter" /></div>
+          <div class="room__slide is-active"><img src="assets/images/rooms_slideshows/slideshow_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_zitronenfalter_1.webp" alt="Zimmer Zitronenfalter — Ansicht 1" loading="lazy" decoding="async" /></div>
+          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_zitronenfalter_2.webp" alt="Zimmer Zitronenfalter — Ansicht 2" loading="lazy" decoding="async" /></div>
+          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_zitronenfalter_3.webp" alt="Zimmer Zitronenfalter — Ansicht 3" loading="lazy" decoding="async" /></div>
           <button class="slider__prev" aria-label="Vorheriges Bild">&#8249;</button>
           <button class="slider__next" aria-label="Nächstes Bild">&#8250;</button>
           <div class="slider__dots">
@@ -897,9 +905,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <article class="room reveal">
       <div class="room__media">
         <div class="room__slider" data-slider>
-          <div class="room__slide is-active"><img src="assets/images/rooms_slideshows/slideshow_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_steinbock_1.webp" alt="Zimmer Steinbock" /></div>
-          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_steinbock_2.webp" alt="Zimmer Steinbock" /></div>
-          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_steinbock_3.webp" alt="Zimmer Steinbock" /></div>
+          <div class="room__slide is-active"><img src="assets/images/rooms_slideshows/slideshow_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_steinbock_1.webp" alt="Zimmer Steinbock — Ansicht 1" loading="lazy" decoding="async" /></div>
+          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_steinbock_2.webp" alt="Zimmer Steinbock — Ansicht 2" loading="lazy" decoding="async" /></div>
+          <div class="room__slide"><img src="assets/images/rooms_slideshows/slideshow_steinbock/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_slider_steinbock_3.webp" alt="Zimmer Steinbock — Ansicht 3" loading="lazy" decoding="async" /></div>
           <button class="slider__prev" aria-label="Vorheriges Bild">&#8249;</button>
           <button class="slider__next" aria-label="Nächstes Bild">&#8250;</button>
           <div class="slider__dots">
@@ -942,7 +950,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 
   <div class="region__big">
     <div class="region__media">
-      <img src="assets/images/hero/Oberstdorf_Allg%C3%A4u_Oberallg%C3%A4u_Ortsteile_Sommer_Wandern.jpg" alt="Oberstdorf im Sommer — Blick über die Allgäuer Alpen" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      <img src="assets/images/hero/Oberstdorf_Allg%C3%A4u_Oberallg%C3%A4u_Ortsteile_Sommer_Wandern.jpg" alt="Oberstdorf im Sommer — Blick über die Allgäuer Alpen" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
     </div>
   </div>
 
@@ -995,7 +1003,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <!-- ========== BOOKING CTA ========== -->
 <section class="book reveal" id="book" aria-labelledby="book-h">
   <div class="book__media" aria-hidden="true">
-    <img src="assets/images/from_outside/IMG_9751.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+    <img src="assets/images/from_outside/IMG_9751.webp" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
   </div>
   <div class="book__panel">
     <div class="eyebrow eyebrow--light">
