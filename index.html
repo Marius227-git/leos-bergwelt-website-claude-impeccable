@@ -1635,7 +1635,8 @@ document.addEventListener('keydown', e => {
   const goTo = (idx) => {
     if (window.innerWidth > 680) return;
     idx = Math.max(0, Math.min(idx, total - 1));
-    track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
+    const cardWidth = track.scrollWidth / total;
+    track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
     updateUI(idx);
   };
 
@@ -1649,7 +1650,8 @@ document.addEventListener('keydown', e => {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
       if (window.innerWidth > 680) return;
-      const idx = Math.round(track.scrollLeft / track.clientWidth);
+      const cardWidth = track.scrollWidth / total;
+      const idx = Math.round(track.scrollLeft / cardWidth);
       updateUI(idx);
     }, 80);
   }, { passive: true });
