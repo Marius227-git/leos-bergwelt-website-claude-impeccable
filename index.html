@@ -523,6 +523,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   gap: clamp(24px, 3vw, 40px);
 }
 .reviews__dots { display: none; }
+.reviews__controls { display: none; }
 .review {
   display: flex; flex-direction: column; gap: 18px;
   padding: clamp(24px, 2.5vw, 32px) 0;
@@ -567,21 +568,33 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 
 @media (max-width: 680px) {
-  .reviews__grid { overflow: hidden; }
   .reviews__track {
     display: flex;
-    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     gap: 0;
   }
+  .reviews__track::-webkit-scrollbar { display: none; }
   .reviews__track .review {
     flex: 0 0 100%;
+    scroll-snap-align: center;
     border-top: 1px solid var(--line);
     padding: 32px 0 8px;
+    min-width: 0;
+  }
+  .reviews__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    gap: 12px;
   }
   .reviews__dots {
-    display: flex; justify-content: center; align-items: center;
-    gap: 8px; margin-top: 28px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
   }
   .reviews__dot {
     width: 7px; height: 7px;
@@ -596,6 +609,27 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     width: 22px;
     border-radius: 4px;
     opacity: 1;
+  }
+  .reviews__arrow {
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    flex-shrink: 0;
+    padding: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .reviews__arrow:hover:not(:disabled) {
+    background: var(--ember);
+    border-color: var(--ember);
+    color: oklch(0.97 0.01 85);
+  }
+  .reviews__arrow:disabled {
+    opacity: 0.25;
+    cursor: default;
   }
 }
 
@@ -1259,10 +1293,18 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
           <figcaption class="review__cite">Jana · Oktober 2025</figcaption>
         </figure>
       </div>
-      <div class="reviews__dots" aria-hidden="true">
-        <button class="reviews__dot active" data-idx="0" aria-label="Bewertung 1"></button>
-        <button class="reviews__dot" data-idx="1" aria-label="Bewertung 2"></button>
-        <button class="reviews__dot" data-idx="2" aria-label="Bewertung 3"></button>
+      <div class="reviews__controls" aria-hidden="true">
+        <button class="reviews__arrow reviews__arrow--prev" disabled aria-label="Vorherige Bewertung">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <div class="reviews__dots">
+          <button class="reviews__dot active" data-idx="0" aria-label="Bewertung 1"></button>
+          <button class="reviews__dot" data-idx="1" aria-label="Bewertung 2"></button>
+          <button class="reviews__dot" data-idx="2" aria-label="Bewertung 3"></button>
+        </div>
+        <button class="reviews__arrow reviews__arrow--next" aria-label="Nächste Bewertung">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
       </div>
     </div>
 
@@ -1572,40 +1614,55 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
 });
 
-// Reviews mobile slider
+// Reviews mobile slider (scroll-snap based)
 (function() {
   const track = document.querySelector('.reviews__track');
   const dots = document.querySelectorAll('.reviews__dot');
-  if (!track || !dots.length) return;
+  const prevBtn = document.querySelector('.reviews__arrow--prev');
+  const nextBtn = document.querySelector('.reviews__arrow--next');
+  if (!track) return;
 
+  const total = track.children.length;
   let current = 0;
-  const total = dots.length;
 
-  const goTo = (idx) => {
+  const updateUI = (idx) => {
     current = Math.max(0, Math.min(idx, total - 1));
-    if (window.innerWidth <= 680) {
-      track.style.transform = `translateX(-${current * 100}%)`;
-    }
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
   };
 
+  const goTo = (idx) => {
+    if (window.innerWidth > 680) return;
+    idx = Math.max(0, Math.min(idx, total - 1));
+    track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
+    updateUI(idx);
+  };
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
   dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
-  // Touch/swipe
-  let touchStartX = 0;
-  track.addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
+  // Sync dots after native scroll-snap settles
+  let scrollTimer;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      if (window.innerWidth > 680) return;
+      const idx = Math.round(track.scrollLeft / track.clientWidth);
+      updateUI(idx);
+    }, 80);
   }, { passive: true });
-  track.addEventListener('touchend', e => {
-    if (window.innerWidth > 680) return;
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+
+  // Reset on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 680) {
+      track.scrollLeft = 0;
+      updateUI(0);
+    }
   });
 
-  // Reset transform on resize to desktop
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 680) track.style.transform = '';
-  });
+  updateUI(0);
 })();
 </script>
 </body>
