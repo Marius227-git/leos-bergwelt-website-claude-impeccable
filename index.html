@@ -382,7 +382,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   display: grid; grid-template-columns: repeat(4, auto); justify-content: center; gap: clamp(32px, 6vw, 80px);
 }
 .intro__facts li {
-  display: flex; flex-direction: column; gap: 4px;
+  display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center;
 }
 .fact__n {
   font-family: var(--serif); font-size: clamp(26px, 2.6vw, 36px); font-weight: 300;
@@ -415,7 +415,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 .room { display: flex; flex-direction: column; gap: 22px; }
 .room:nth-child(2) { margin-top: clamp(40px, 6vw, 80px); }
-.room:nth-child(3) { margin-top: clamp(20px, 3vw, 40px); }
+.room:nth-child(3) { margin-top: 0; }
 
 .room__media {
   position: relative; aspect-ratio: 3 / 2;
@@ -516,10 +516,13 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 .reviews__agg-meta strong { color: var(--ink); font-weight: 500; }
 .reviews__grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: clamp(24px, 3vw, 40px);
   margin-top: clamp(40px, 5vw, 56px);
 }
+.reviews__track {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+}
+.reviews__dots { display: none; }
 .review {
   display: flex; flex-direction: column; gap: 18px;
   padding: clamp(24px, 2.5vw, 32px) 0;
@@ -559,8 +562,41 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     text-align: left; flex-direction: row; align-items: baseline;
     flex-wrap: wrap; gap: 18px;
   }
-  .reviews__grid { grid-template-columns: 1fr; gap: 8px; }
+  .reviews__track { grid-template-columns: 1fr; gap: 8px; }
   .review { border-top: 1px solid var(--line); padding: 28px 0 4px; }
+}
+
+@media (max-width: 680px) {
+  .reviews__grid { overflow: hidden; }
+  .reviews__track {
+    display: flex;
+    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    gap: 0;
+  }
+  .reviews__track .review {
+    flex: 0 0 100%;
+    border-top: 1px solid var(--line);
+    padding: 32px 0 8px;
+  }
+  .reviews__dots {
+    display: flex; justify-content: center; align-items: center;
+    gap: 8px; margin-top: 28px;
+  }
+  .reviews__dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--stone);
+    border: none; cursor: pointer; padding: 0;
+    opacity: 0.35;
+    transition: background 0.2s, width 0.25s ease, border-radius 0.25s ease, opacity 0.2s;
+  }
+  .reviews__dot.active {
+    background: var(--ember);
+    width: 22px;
+    border-radius: 4px;
+    opacity: 1;
+  }
 }
 
 /* ===== REGION ===== */
@@ -1190,7 +1226,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <section class="reviews reveal" id="bewertungen" aria-labelledby="reviews-h">
   <div class="reviews__inner">
     <div class="eyebrow" style="margin-bottom: clamp(28px, 3vw, 40px);">
-      <span class="eyebrow__num">02½</span>
+      <span class="eyebrow__num">03</span>
       <span class="eyebrow__label">Was Gäste sagen</span>
     </div>
     <div class="reviews__head">
@@ -1209,18 +1245,25 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     </div>
 
     <div class="reviews__grid">
-      <figure class="review">
-        <p class="review__text">Die Unterkunft war wie im Inserat beschrieben. Ich habe mich sehr wohl gefühlt. Supertoll, der Kaffeeautomat inklusive Kaffeebohnen! Auch die gemeinsame Nutzung von Küche und Bad war überhaupt kein Problem.</p>
-        <figcaption class="review__cite">Rita · Februar 2026</figcaption>
-      </figure>
-      <figure class="review">
-        <p class="review__text">Wir hatten eine sehr tolle Zeit und haben uns sehr wohl gefühlt. Perfekte Lage für Wanderungen und Ausflüge in und um Oberstdorf.</p>
-        <figcaption class="review__cite">Anna-Lena · Oktober 2025</figcaption>
-      </figure>
-      <figure class="review">
-        <p class="review__text">Schönes Zimmer, gemütliches Bett, Küche mit allem was man braucht, gute Busanbindung und schnelle Rückmeldung der beiden sobald man Fragen hatte. Ich bin rundum zufrieden und kann die Unterkunft nur empfehlen.</p>
-        <figcaption class="review__cite">Jana · Oktober 2025</figcaption>
-      </figure>
+      <div class="reviews__track">
+        <figure class="review">
+          <p class="review__text">Die Unterkunft war wie im Inserat beschrieben. Ich habe mich sehr wohl gefühlt. Supertoll, der Kaffeeautomat inklusive Kaffeebohnen! Auch die gemeinsame Nutzung von Küche und Bad war überhaupt kein Problem.</p>
+          <figcaption class="review__cite">Rita · Februar 2026</figcaption>
+        </figure>
+        <figure class="review">
+          <p class="review__text">Wir hatten eine sehr tolle Zeit und haben uns sehr wohl gefühlt. Perfekte Lage für Wanderungen und Ausflüge in und um Oberstdorf.</p>
+          <figcaption class="review__cite">Anna-Lena · Oktober 2025</figcaption>
+        </figure>
+        <figure class="review">
+          <p class="review__text">Schönes Zimmer, gemütliches Bett, Küche mit allem was man braucht, gute Busanbindung und schnelle Rückmeldung der beiden sobald man Fragen hatte. Ich bin rundum zufrieden und kann die Unterkunft nur empfehlen.</p>
+          <figcaption class="review__cite">Jana · Oktober 2025</figcaption>
+        </figure>
+      </div>
+      <div class="reviews__dots" aria-hidden="true">
+        <button class="reviews__dot active" data-idx="0" aria-label="Bewertung 1"></button>
+        <button class="reviews__dot" data-idx="1" aria-label="Bewertung 2"></button>
+        <button class="reviews__dot" data-idx="2" aria-label="Bewertung 3"></button>
+      </div>
     </div>
 
     <div class="reviews__foot">
@@ -1237,7 +1280,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <section class="region reveal" id="region" aria-labelledby="region-h">
   <div class="region__top">
     <div class="eyebrow eyebrow--light">
-      <span class="eyebrow__num">03</span>
+      <span class="eyebrow__num">04</span>
       <span class="eyebrow__label">Die Region</span>
     </div>
     <h2 id="region-h" class="region__title">
@@ -1305,7 +1348,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="book__panel">
     <div class="book__copy">
       <div class="eyebrow eyebrow--light">
-        <span class="eyebrow__num">04</span>
+        <span class="eyebrow__num">05</span>
         <span class="eyebrow__label">Preise &amp; Buchung</span>
       </div>
       <h2 id="book-h" class="book__title">
@@ -1528,6 +1571,42 @@ mobileMenu.querySelectorAll('a').forEach(link => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
 });
+
+// Reviews mobile slider
+(function() {
+  const track = document.querySelector('.reviews__track');
+  const dots = document.querySelectorAll('.reviews__dot');
+  if (!track || !dots.length) return;
+
+  let current = 0;
+  const total = dots.length;
+
+  const goTo = (idx) => {
+    current = Math.max(0, Math.min(idx, total - 1));
+    if (window.innerWidth <= 680) {
+      track.style.transform = `translateX(-${current * 100}%)`;
+    }
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  };
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  // Touch/swipe
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', e => {
+    if (window.innerWidth > 680) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  });
+
+  // Reset transform on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 680) track.style.transform = '';
+  });
+})();
 </script>
 </body>
 </html>
