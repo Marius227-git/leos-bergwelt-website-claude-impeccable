@@ -301,6 +301,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   transition: transform 0.5s var(--ease), opacity 0.3s;
 }
 .room-section__thumb:hover img { transform: scale(1.1); opacity: .85; }
+.room-section__thumb.is-active { outline: 2px solid var(--ember); outline-offset: 2px; }
+.room-section__lead img { transition: transform 0.9s var(--ease), opacity 0.2s ease; }
 
 /* Info panel */
 .room-section__info { position: sticky; top: 96px; }
@@ -541,7 +543,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="ph__frame">
     <p class="ph__eyebrow">Leos Bergwelt · Tiefenbach bei Oberstdorf</p>
     <h1 class="ph__title">Die drei<br><em>Zimmer.</em></h1>
-    <p class="ph__sub">Jedes mit eigenem Charakter. Eine Etage, drei Perspektiven auf die Allgäuer Berge.</p>
+    <p class="ph__sub">Eine Etage, drei Wohlfühloasen.</p>
   </div>
 </section>
 
@@ -566,7 +568,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       </li>
       <li class="facts-bar__item">
         <span class="fb__num">4 Min.</span>
-        <span class="fb__label">Bushaltestelle</span>
+        <span class="fb__label">zur Bushaltestelle</span>
         <span class="fb__sublabel">zu Fuß</span>
       </li>
     </ul>
@@ -591,24 +593,32 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <div class="room-section__info">
       <p class="room-section__idx">Nr. I</p>
       <h2 class="room-section__name">Enzian</h2>
-      <p class="room-section__tagline">Ruhig. Geerdet. Mit Gartenblick.</p>
-      <p class="room-section__desc">Ein gemütliches Doppelzimmer im Erdgeschoss. Natürliche Materialien, warme Atmosphäre — ideal für alle, die nach einem langen Wandertag einfach ankommen wollen.</p>
+      <p class="room-section__tagline">Ruhig. Preislich am attraktivsten. Kein Balkon.</p>
+      <p class="room-section__desc">Unser Bestseller. Natürliche, recycelte Materialien und handgefertigte Möbel schaffen eine warme Atmosphäre — ideal für alle, die nach einem langen Wandertag einfach ankommen wollen.</p>
       <ul class="room-section__features">
         <li class="room-section__feature">
           <span class="feature__label">Bett</span>
-          <span class="feature__val">Doppelbett 160 × 200 cm</span>
+          <span class="feature__val">Doppelbett 200 × 200 cm</span>
         </li>
         <li class="room-section__feature">
           <span class="feature__label">Etage</span>
-          <span class="feature__val">Erdgeschoss</span>
+          <span class="feature__val">1. Obergeschoss</span>
         </li>
         <li class="room-section__feature">
-          <span class="feature__label">Aussicht</span>
-          <span class="feature__val">Gartenblick</span>
+          <span class="feature__label">Balkon</span>
+          <span class="feature__val">Nein</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Highlight</span>
+          <span class="feature__val">Günstigstes Zimmer · Bestseller</span>
         </li>
         <li class="room-section__feature">
           <span class="feature__label">WLAN</span>
           <span class="feature__val">Kostenlos</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Check-in</span>
+          <span class="feature__val">Self-Check-in · Codeschloss</span>
         </li>
       </ul>
       <div class="room-section__price">
@@ -616,7 +626,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
         <span class="price__num">53 €</span>
         <span class="price__unit">/ Nacht</span>
       </div>
-      <a class="btn btn--primary" href="index.html#book">
+      <a class="btn btn--primary" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
         <span>Jetzt buchen</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -641,12 +651,12 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <div class="room-section__info">
       <p class="room-section__idx">Nr. II</p>
       <h2 class="room-section__name">Zitronenfalter</h2>
-      <p class="room-section__tagline">Hell. Sonnig. Voller Morgenlicht.</p>
-      <p class="room-section__desc">Das hellste Zimmer der Etage. Große Fenster, warmes Licht — perfekt für Paare, die den Tag früh beginnen und die Berge in der Morgensonne genießen wollen.</p>
+      <p class="room-section__tagline">Hell. Sonnig. Mit Balkon.</p>
+      <p class="room-section__desc">Das hellste Zimmer der Etage. Große Fenster, warmes Licht – perfekt für Gäste, die auf das richtige Licht Wert legen.</p>
       <ul class="room-section__features">
         <li class="room-section__feature">
           <span class="feature__label">Bett</span>
-          <span class="feature__val">Doppelbett 160 × 200 cm</span>
+          <span class="feature__val">Doppelbett 200 × 200 cm</span>
         </li>
         <li class="room-section__feature">
           <span class="feature__label">Etage</span>
@@ -657,8 +667,16 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
           <span class="feature__val">Bergblick</span>
         </li>
         <li class="room-section__feature">
+          <span class="feature__label">Balkon</span>
+          <span class="feature__val">Ja — gemeinschaftlich</span>
+        </li>
+        <li class="room-section__feature">
           <span class="feature__label">WLAN</span>
           <span class="feature__val">Kostenlos</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Check-in</span>
+          <span class="feature__val">Self-Check-in · Codeschloss</span>
         </li>
       </ul>
       <div class="room-section__price">
@@ -666,7 +684,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
         <span class="price__num">62 €</span>
         <span class="price__unit">/ Nacht</span>
       </div>
-      <a class="btn btn--primary" href="index.html#book">
+      <a class="btn btn--primary" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
         <span>Jetzt buchen</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -691,28 +709,32 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <div class="room-section__info">
       <p class="room-section__idx">Nr. III</p>
       <h2 class="room-section__name">Steinbock</h2>
-      <p class="room-section__tagline">Unter dem Dach. Nah an den Bergen.</p>
-      <p class="room-section__desc">Das Dachzimmer mit Lärchenholz-Schrägen und einem Lesesessel. Am Horizont die Silhouette des Nebelhorns. Für alle, die Ruhe und Höhe suchen.</p>
+      <p class="room-section__tagline">Gemütlich. Kuschelig. Mit Balkon.</p>
+      <p class="room-section__desc">Selbstgebaute Möbel aus recyceltem Holz. Wenn du reinkommst, wirst du vom angenehmen Holzgeruch verzaubert. Auf dem Balkon kannst du das Alpenglühen am Abend bewundern.</p>
       <ul class="room-section__features">
         <li class="room-section__feature">
           <span class="feature__label">Bett</span>
-          <span class="feature__val">Doppelbett 160 × 200 cm</span>
+          <span class="feature__val">Doppelbett 200 × 200 cm</span>
         </li>
         <li class="room-section__feature">
           <span class="feature__label">Etage</span>
-          <span class="feature__val">Dachgeschoss</span>
+          <span class="feature__val">1. Obergeschoss</span>
         </li>
         <li class="room-section__feature">
           <span class="feature__label">Aussicht</span>
-          <span class="feature__val">Nebelhorn-Silhouette</span>
+          <span class="feature__val">Bergblick</span>
         </li>
         <li class="room-section__feature">
-          <span class="feature__label">Besonderheit</span>
-          <span class="feature__val">Lesesessel, Lärchenholz</span>
+          <span class="feature__label">Balkon</span>
+          <span class="feature__val">Ja — gemeinschaftlich</span>
         </li>
         <li class="room-section__feature">
           <span class="feature__label">WLAN</span>
           <span class="feature__val">Kostenlos</span>
+        </li>
+        <li class="room-section__feature">
+          <span class="feature__label">Check-in</span>
+          <span class="feature__val">Self-Check-in · Codeschloss</span>
         </li>
       </ul>
       <div class="room-section__price">
@@ -720,7 +742,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
         <span class="price__num">62 €</span>
         <span class="price__unit">/ Nacht</span>
       </div>
-      <a class="btn btn--primary" href="index.html#book">
+      <a class="btn btn--primary" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
         <span>Jetzt buchen</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -733,11 +755,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="shared__inner">
     <div class="shared__head">
       <p class="shared__eyebrow">Gemeinschaftliche Räume</p>
-      <h2 class="shared__title">Küche &amp; Bad —<br><em>geteilt, nicht allein.</em></h2>
-      <p class="shared__sub">Alle drei Zimmer teilen sich eine vollausgestattete Küche und ein modernes Bad auf der Etage. Ideal für Gruppen oder drei Paare, die zusammen reisen.</p>
+      <h2 class="shared__title">Gemeinschaftliche<br><em>Flächen der Etage.</em></h2>
+      <p class="shared__sub">Alle drei Zimmer teilen sich Küche, Bad und Balkon auf der Etage. Für einen entspannten Aufenthalt zu mehreren — oder drei Paare, die zusammen reisen.</p>
       <span class="shared__callout">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Gemeinschaftlich genutzt — bei der Buchung berücksichtigen
+        Küche, Bad &amp; Balkon gemeinschaftlich — bei der Buchung berücksichtigen
       </span>
     </div>
     <div class="shared__grid">
@@ -752,15 +774,15 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
         <div class="shared__img">
           <img src="assets/images/bathroom/IMG_9658.webp" alt="Gemeinschaftsbad" loading="lazy" />
         </div>
-        <h3 class="shared__card-title">Bad</h3>
-        <p class="shared__card-desc">Modernes Badezimmer mit Dusche und allem Nötigen. Sauber, funktional und durchdacht gestaltet.</p>
+        <h3 class="shared__card-title">Bad &amp; Gäste-WC</h3>
+        <p class="shared__card-desc">Modernes Bad mit Dusche — und ein separates Gäste-WC als Ausweichmöglichkeit. Wenn das Bad belegt ist, kein Problem: das Extra-WC ist immer frei.</p>
       </div>
       <div class="shared__card reveal">
         <div class="shared__img">
-          <img src="assets/images/hallway/IMG_9666.webp" alt="Flur und Eingang" loading="lazy" />
+          <img src="assets/images/hallway/IMG_9666.webp" alt="Flur und Balkon" loading="lazy" />
         </div>
-        <h3 class="shared__card-title">Flur &amp; Eingang</h3>
-        <p class="shared__card-desc">Großzügiger Flur mit Abstellfläche für Wanderausrüstung, Skischuhe und Gepäck. Praktisch organisiert für Aktivurlauber.</p>
+        <h3 class="shared__card-title">Balkon &amp; Flur</h3>
+        <p class="shared__card-desc">Der Balkon gehört allen — ideal zum Alpenglühen am Abend (Zitronenfalter &amp; Steinbock). Großzügiger Flur mit Abstellfläche für Ausrüstung und Gepäck.</p>
       </div>
     </div>
   </div>
@@ -825,6 +847,30 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('nav--scrolled', window.scrollY > 40);
 }, { passive: true });
 if (window.scrollY > 40) nav.classList.add('nav--scrolled');
+
+// Gallery thumbnail switcher
+document.querySelectorAll('.room-section__gallery').forEach(gallery => {
+  const leadImg = gallery.querySelector('.room-section__lead img');
+  const thumbs = gallery.querySelectorAll('.room-section__thumb');
+  // Mark first thumb active on load
+  if (thumbs[0]) thumbs[0].classList.add('is-active');
+  thumbs.forEach(thumb => {
+    thumb.style.cursor = 'pointer';
+    thumb.addEventListener('click', () => {
+      const src = thumb.querySelector('img').src;
+      const alt = thumb.querySelector('img').alt;
+      // Fade out → swap → fade in
+      leadImg.style.opacity = '0';
+      setTimeout(() => {
+        leadImg.src = src;
+        leadImg.alt = alt;
+        leadImg.style.opacity = '1';
+      }, 180);
+      thumbs.forEach(t => t.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+    });
+  });
+});
 
 // Reveal on scroll
 const io = new IntersectionObserver((entries) => {
