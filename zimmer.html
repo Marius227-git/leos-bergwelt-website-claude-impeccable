@@ -224,48 +224,42 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   border-bottom: 1px solid var(--line);
 }
 .facts-bar__inner {
-  max-width: var(--maxw); margin: 0 auto;
-  padding: clamp(36px, 5vw, 60px) var(--pad);
+  max-width: 1040px; margin: 0 auto;
+  padding: clamp(44px, 6vw, 72px) var(--pad);
+  text-align: center;
 }
 .facts-bar__grid {
   list-style: none;
-  display: grid; grid-template-columns: repeat(4, auto);
-  justify-content: center; gap: clamp(28px, 5vw, 72px);
-  padding-top: 32px; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 40px);
+  padding-top: 0; border-top: 0;
 }
-.facts-bar__item { display: flex; flex-direction: column; gap: 5px; }
+.facts-bar__item {
+  display: flex; flex-direction: column; gap: 10px;
+  align-items: center; text-align: center;
+  padding: 0;
+}
 .fb__num {
-  font-family: var(--serif); font-size: clamp(26px, 2.8vw, 40px);
+  font-family: var(--serif); font-size: clamp(28px, 3vw, 42px);
   font-weight: 300; letter-spacing: -0.01em; line-height: 1;
   color: var(--ember);
 }
 .fb__label {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--stone);
 }
 .fb__sublabel {
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
   text-transform: uppercase; color: var(--stone-soft);
 }
-/* Highlighted shared-use item */
-.facts-bar__item--shared {
-  background: oklch(0.97 0.012 55 / .35);
-  border: 1px solid oklch(0.70 0.06 60 / .45);
-  border-radius: 10px; padding: 14px 18px; gap: 4px;
-}
-.facts-bar__item--shared .fb__label { color: var(--ember); }
+.fb__label-mobile { display: none; }
 .facts-bar__item--shared .fb__num { color: var(--ember); }
-.fb__badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ember-soft); margin-top: 4px;
-}
-.fb__badge::before { content: "!"; display: block; font-size: 10px; font-weight: 500; }
 .facts-bar__note {
-  margin-top: clamp(20px, 3vw, 32px);
+  margin: clamp(28px, 4vw, 40px) auto 0; max-width: 56ch;
   font-family: var(--serif); font-weight: 300; font-style: italic;
-  font-size: clamp(14px, 1.3vw, 16px); color: var(--ink-soft);
-  text-align: center; max-width: 64ch; margin-inline: auto;
+  font-size: clamp(14px, 1.2vw, 16px); line-height: 1.65;
+  color: var(--stone); text-align: center;
 }
 
 /* ===== ROOM SECTIONS ===== */
@@ -407,7 +401,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .book__media { position: absolute; inset: 0; z-index: 0; }
 .book__media::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(8,6,4,.84) 0%, rgba(8,6,4,.52) 60%, rgba(8,6,4,.32) 100%);
+  background: linear-gradient(135deg, rgba(8,6,4,.94) 0%, rgba(8,6,4,.78) 55%, rgba(8,6,4,.55) 100%);
 }
 .book__media img { width: 100%; height: 100%; object-fit: cover; }
 .book__panel {
@@ -416,7 +410,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 .book__eyebrow {
   font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-  color: oklch(0.88 0.01 85 / .5); display: flex; align-items: center; gap: 14px;
+  color: oklch(0.92 0.015 85 / .85); display: flex; align-items: center; gap: 14px;
 }
 .book__eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--ember-soft); }
 .book__title {
@@ -426,7 +420,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .book__title em { font-style: italic; color: var(--ember-soft); }
 .book__sub {
   font-family: var(--serif); font-weight: 300; font-style: italic;
-  font-size: clamp(15px, 1.4vw, 17px); color: oklch(0.88 0.01 85 / .68);
+  font-size: clamp(15px, 1.4vw, 17px); color: oklch(0.94 0.01 85 / .92);
 }
 .book__btn {
   display: inline-flex; align-items: center; gap: 10px;
@@ -481,13 +475,34 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   .room-section__info { position: static; }
   .shared__grid { grid-template-columns: 1fr 1fr; }
   .foot__grid { grid-template-columns: 1fr 1fr; }
-  .facts-bar__grid { grid-template-columns: repeat(2, auto); gap: clamp(20px, 4vw, 48px); }
+  .facts-bar__grid { grid-template-columns: repeat(2, 1fr); gap: clamp(28px, 5vw, 48px); }
 }
 @media (max-width: 680px) {
   .nav__cta span { display: none; }
   .nav__cta { padding: 9px 12px; }
   .nav__logo { height: 56px; }
-  .facts-bar__grid { grid-template-columns: 1fr 1fr; }
+  /* Single-column horizontal rows like the homepage */
+  .facts-bar__inner { padding-left: clamp(20px, 6vw, 32px); padding-right: clamp(20px, 6vw, 32px); }
+  .facts-bar__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 0;
+  }
+  .facts-bar__item {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    text-align: left;
+    gap: 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .facts-bar__item:first-child { border-top: 1px solid var(--line); }
+  .fb__num { font-size: clamp(20px, 5.5vw, 26px); flex-shrink: 0; }
+  .fb__label { text-align: right; flex: 1; min-width: 0; }
+  .fb__label-mobile { display: inline; }
+  .fb__sublabel { display: none; }
+  .facts-bar__note { text-align: center; margin-top: clamp(20px, 4vw, 28px); }
   .shared__grid { grid-template-columns: 1fr; }
   .foot__grid { grid-template-columns: 1fr; }
   .room-section__thumbs { grid-template-columns: repeat(4, 1fr); }
@@ -510,7 +525,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <a href="kontakt.html">Kontakt</a>
     </nav>
     <a class="nav__cta" href="index.html#book">
-      <span>Verfügbarkeit</span>
+      <span>Buchen</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
@@ -559,27 +574,27 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="facts-bar__inner">
     <ul class="facts-bar__grid">
       <li class="facts-bar__item">
-        <span class="fb__num">3</span>
-        <span class="fb__label">Doppelzimmer</span>
-        <span class="fb__sublabel">Gemütlich &amp; modern</span>
+        <span class="fb__num">3 Doppelzimmer</span>
+        <span class="fb__label">GEMÜTLICH &amp; MODERN</span>
+        <span class="fb__sublabel">RECYCELTE MÖBEL</span>
       </li>
       <li class="facts-bar__item facts-bar__item--shared">
         <span class="fb__num">Küche &amp; Bad</span>
-        <span class="fb__label">Gemeinschaftlich genutzt</span>
-        <span class="fb__badge">Alle 3 Zimmer teilen die Etage</span>
+        <span class="fb__label">Gemeinschaftlich<span class="fb__label-mobile"> genutzt</span></span>
+        <span class="fb__sublabel">für alle 3 Zimmer</span>
       </li>
       <li class="facts-bar__item">
         <span class="fb__num">11 Min.</span>
-        <span class="fb__label">nach Oberstdorf</span>
+        <span class="fb__label">nach Oberstdorf<span class="fb__label-mobile"> mit Auto</span></span>
         <span class="fb__sublabel">mit dem Auto</span>
       </li>
       <li class="facts-bar__item">
         <span class="fb__num">4 Min.</span>
-        <span class="fb__label">zur Bushaltestelle</span>
+        <span class="fb__label">zur Bushaltestelle<span class="fb__label-mobile"> zu Fuß</span></span>
         <span class="fb__sublabel">zu Fuß</span>
       </li>
     </ul>
-    <p class="facts-bar__note">Küche und Bad werden gemeinschaftlich von allen Gästen der Etage genutzt — bitte bei der Planung berücksichtigen.</p>
+    <p class="facts-bar__note">Küche und Bad werden gemeinschaftlich von allen Gästen genutzt — zusätzliches Gäste-WC vorhanden. Bitte bei der Planung berücksichtigen.</p>
   </div>
 </section>
 
@@ -665,7 +680,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <p class="room-section__idx">Nr. II</p>
       <h2 class="room-section__name">Zitronenfalter</h2>
       <p class="room-section__tagline">Hell. Sonnig. Mit Balkon.</p>
-      <p class="room-section__desc">Das hellste Zimmer der Etage. Große Fenster, warmes Licht – perfekt für Gäste, die auf das richtige Licht Wert legen.</p>
+      <p class="room-section__desc">Helle Farben und natürliche Materialien schaffen eine leichte, ruhige Atmosphäre. Ein Ort, an dem man sofort durchatmet und zur Ruhe kommt. Auf dem Balkon kannst du am Abend das Alpenglühen genießen.</p>
       <ul class="room-section__features">
         <li class="room-section__feature">
           <span class="feature__label">Bett</span>
@@ -780,8 +795,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="shared__inner">
     <div class="shared__head">
       <p class="shared__eyebrow">Gemeinschaftliche Räume</p>
-      <h2 class="shared__title">Gemeinschaftliche<br><em>Flächen der Etage.</em></h2>
-      <p class="shared__sub">Alle drei Zimmer teilen sich Küche, Bad und Balkon auf der Etage. Für einen entspannten Aufenthalt zu mehreren — oder drei Paare, die zusammen reisen.</p>
+      <h2 class="shared__title">Gemeinsam<br><em>auf einer Etage.</em></h2>
+      <p class="shared__sub">Alle drei Zimmer befinden sich auf der gleichen Etage und teilen sich Küche und Bad.<br>Der große Balkon wird von den Zimmern Steinbock und Zitronenfalter genutzt.<br>Das Zimmer Enzian verfügt über keinen Balkon.<br><br><br>Für zusätzlichen Komfort steht im Erdgeschoss ein weiteres Gäste-WC zur Verfügung.</p>
       <span class="shared__callout">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         Küche, Bad &amp; Balkon gemeinschaftlich — bei der Buchung berücksichtigen
@@ -793,21 +808,21 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
           <img src="assets/images/kitchen/IMG_9586.webp" alt="Gemeinschaftsküche" loading="lazy" />
         </div>
         <h3 class="shared__card-title">Küche</h3>
-        <p class="shared__card-desc">Vollausgestattet mit Herd, Backofen, Kühlschrank und Kaffeemaschine. Alles, was ihr für entspannte Frühstücke und Abendessen braucht.</p>
+        <p class="shared__card-desc">Vollausgestattet mit Herd, Backofen, Kühlschrank, Tiefkühlschrank, Kaffeemaschine und allerlei Küchenutensilien. Alles, was ihr fürs Kochen braucht.</p>
       </div>
       <div class="shared__card reveal">
         <div class="shared__img">
           <img src="assets/images/bathroom/IMG_9658.webp" alt="Gemeinschaftsbad" loading="lazy" />
         </div>
         <h3 class="shared__card-title">Bad &amp; Gäste-WC</h3>
-        <p class="shared__card-desc">Modernes Bad mit Dusche — und ein separates Gäste-WC als Ausweichmöglichkeit. Wenn das Bad belegt ist, kein Problem: das Extra-WC ist immer frei.</p>
+        <p class="shared__card-desc">Modernes Bad mit Dusche und WC — und ein zusätzliches Gäste-WC als Ausweichmöglichkeit. Wenn das Bad belegt ist, kein Problem: einfach ausweichen auf das extra Gäste-WC.</p>
       </div>
       <div class="shared__card reveal">
         <div class="shared__img">
           <img src="assets/images/hallway/IMG_9666.webp" alt="Flur und Balkon" loading="lazy" />
         </div>
         <h3 class="shared__card-title">Balkon &amp; Flur</h3>
-        <p class="shared__card-desc">Der Balkon gehört allen — ideal zum Alpenglühen am Abend (Zitronenfalter &amp; Steinbock). Großzügiger Flur mit Abstellfläche für Ausrüstung und Gepäck.</p>
+        <p class="shared__card-desc">Großer Süd-Balkon (für Zitronenfalter &amp; Steinbock) mit herrlichem Blick auf das Söllereck — ideal zum Sonnen &amp; Entspannen. Großzügiger Flur mit Abstellfläche für Ski- &amp; Wanderschuhe.</p>
       </div>
     </div>
   </div>
@@ -821,7 +836,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="book__panel">
     <p class="book__eyebrow">Direkt buchen</p>
     <h2 class="book__title">Jetzt anfragen.<br><em>Ohne Aufschlag.</em></h2>
-    <p class="book__sub">Direkt beim Gastgeber buchen — ohne Plattformgebühren. Die günstigsten Preise, die du für dieses Haus findest.</p>
+    <p class="book__sub">Direkt beim Gastgeber buchen — ohne Plattformgebühren.<br>Die günstigsten Preise, die du für dieses Haus findest.</p>
     <a class="book__btn" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
       <span>Verfügbarkeit prüfen</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>

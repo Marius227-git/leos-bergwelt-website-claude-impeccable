@@ -303,7 +303,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   position: relative; z-index: 2;
   max-width: var(--maxw); width: 100%; margin: 0 auto;
   padding: 0 var(--pad) 28px;
-  display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px;
+  display: flex; justify-content: center;
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
   color: oklch(0.95 0.01 85 / .75);
   border-top: 1px solid oklch(0.95 0.01 85 / .22);
@@ -452,6 +452,117 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .link-arrow svg { width: 18px; height: 18px; }
 .link-arrow:hover { gap: 18px; color: var(--ember); border-bottom-color: var(--ember); }
 
+/* ===== REVIEWS ===== */
+.reviews {
+  background: var(--bg-warm);
+  padding: clamp(80px, 11vw, 140px) 0 clamp(70px, 10vw, 120px);
+  border-top: 1px solid var(--line);
+}
+.reviews__inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad);
+}
+.reviews__head {
+  display: grid; grid-template-columns: 1.5fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: end;
+  padding-bottom: clamp(40px, 5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+.reviews__hero {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(26px, 2.6vw, 38px); line-height: 1.32; letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: pretty;
+  margin: 0;
+  max-width: 32ch;
+}
+.reviews__hero::before {
+  content: "\201C";
+  display: block;
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(64px, 7vw, 96px);
+  line-height: 0.6; color: var(--ember);
+  margin-bottom: 12px;
+}
+.reviews__hero em { font-style: italic; color: var(--ember); }
+.reviews__hero-cite {
+  display: block; margin-top: 24px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+  font-weight: 400;
+}
+.reviews__agg {
+  display: flex; flex-direction: column; gap: 6px;
+  text-align: right;
+  border-left: 1px solid var(--line);
+  padding-left: clamp(24px, 3vw, 40px);
+  align-self: stretch;
+  justify-content: center;
+}
+.reviews__agg-rating {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(56px, 6vw, 88px); line-height: 1;
+  color: var(--ember);
+  letter-spacing: -0.02em;
+}
+.reviews__agg-stars {
+  font-size: 14px; letter-spacing: 0.15em; color: var(--ember-soft);
+  margin: 4px 0 12px;
+}
+.reviews__agg-meta {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.reviews__agg-meta strong { color: var(--ink); font-weight: 500; }
+.reviews__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+  margin-top: clamp(40px, 5vw, 56px);
+}
+.review {
+  display: flex; flex-direction: column; gap: 18px;
+  padding: clamp(24px, 2.5vw, 32px) 0;
+  border-top: 1px solid transparent;
+}
+.review__text {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(15.5px, 1.15vw, 17px); line-height: 1.55;
+  color: var(--ink-soft); margin: 0;
+  text-wrap: pretty;
+}
+.review__cite {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+  margin-top: auto; padding-top: 4px;
+}
+.review__cite::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--ember);
+}
+.reviews__foot {
+  margin-top: clamp(40px, 5vw, 56px);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 20px;
+  padding-top: clamp(28px, 3vw, 40px);
+  border-top: 1px solid var(--line);
+}
+.reviews__source {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+}
+@media (max-width: 1024px) {
+  .reviews__head { grid-template-columns: 1fr; align-items: start; }
+  .reviews__agg {
+    border-left: none; border-top: 1px solid var(--line);
+    padding-left: 0; padding-top: 28px;
+    text-align: left; flex-direction: row; align-items: baseline;
+    flex-wrap: wrap; gap: 18px;
+  }
+  .reviews__grid { grid-template-columns: 1fr; gap: 8px; }
+  .review { border-top: 1px solid var(--line); padding: 28px 0 4px; }
+}
+
 /* ===== REGION ===== */
 .region {
   background: var(--dark);
@@ -555,34 +666,33 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .book__media { position: absolute; inset: 0; z-index: 0; }
 .book__media::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(100deg, rgba(14,12,8,.82) 0%, rgba(14,12,8,.55) 55%, rgba(14,12,8,.2) 100%);
+  background: linear-gradient(135deg, rgba(8,6,4,.94) 0%, rgba(8,6,4,.78) 55%, rgba(8,6,4,.55) 100%);
 }
 .book__panel {
   position: relative; z-index: 1;
   max-width: var(--maxw); width: 100%; margin: 0 auto;
   display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 80px);
-  align-items: start;
+  align-items: center;
 }
-.book__panel .eyebrow { grid-column: 1; }
+.book__copy { grid-column: 1; grid-row: 1 / span 4; align-self: center; }
 .book__title {
-  grid-column: 1;
   font-family: var(--serif); font-weight: 300;
   font-size: clamp(34px, 3.8vw, 60px); line-height: 1.08; letter-spacing: -0.012em;
   margin: 20px 0 0; max-width: 20ch;
 }
 .book__title em { font-style: italic; color: var(--ember-soft); }
 .book__sub {
-  grid-column: 1;
   font-family: var(--serif); font-weight: 300; font-style: italic;
   font-size: clamp(16px, 1.4vw, 19px); line-height: 1.55;
   color: oklch(0.88 0.012 85 / .8);
   margin: 16px 0 0; max-width: 36ch;
 }
-.book__cta { grid-column: 1; margin-top: 28px; }
+.book__cta { margin-top: 28px; }
 
 /* ===== PRICES PANEL ===== */
 .book__prices {
   grid-column: 2; grid-row: 1 / span 4;
+  align-self: center;
   background: oklch(0.96 0.01 85 / .07);
   border: 1px solid oklch(0.95 0.01 85 / .18);
   backdrop-filter: blur(14px);
@@ -805,10 +915,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   /* Slider arrows always visible on touch screens */
   .slider__prev, .slider__next { opacity: 0.75; }
 
-  /* Hero footer: hide weather + season cols on mobile, only show scroll indicator */
-  .hero__foot { grid-template-columns: 1fr; justify-items: start; }
-  .hero__foot .foot__col:not(.foot__scroll) { display: none; }
-  .hero__foot .foot__scroll { justify-content: flex-start; }
+  /* Hero footer: only the centered scroll indicator remains */
+  .hero__foot { justify-content: center; }
+  .hero__foot .foot__scroll { justify-content: center; }
 
   /* Rotating mark: less vertical padding on mobile so it doesn't dominate */
   .markband { padding-top: clamp(24px, 4vw, 40px); padding-bottom: clamp(18px, 3vw, 32px); }
@@ -853,7 +962,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <header class="nav" id="nav">
   <div class="nav__inner">
     <a class="nav__mark" href="#top" aria-label="Leos Bergwelt">
-      <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
+      <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png?v=2" alt="Leos Bergwelt" />
     </a>
     <nav class="nav__links" aria-label="Hauptnavigation">
       <a href="zimmer.html">Die Zimmer</a>
@@ -863,7 +972,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <a href="kontakt.html">Kontakt</a>
     </nav>
     <a class="nav__cta" href="#book">
-      <span>Verfügbarkeit</span>
+      <span>Buchen</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
@@ -899,14 +1008,14 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <section class="hero" aria-label="Willkommen">
   <div class="hero__media" data-parallax>
     <div class="hero__img" role="img" aria-label="Allgäuer Berglandschaft bei Oberstdorf">
-      <img class="hero__photo" src="assets/images/hero/Allg%C3%A4u_Oberstdorf_Tiefenbach_Weidach_Unterkunft_Ferienwohnung_Breitachklamm_5.webp" alt="Allgäuer Berglandschaft mit Bergsee bei Oberstdorf" fetchpriority="high" />
+      <img class="hero__photo" src="assets/images/hero/Allg%C3%A4u_Oberstdorf_Tiefenbach_Weidach_Unterkunft_Ferienwohnung_Breitachklamm_5.webp?v=2" alt="Allgäuer Berglandschaft mit Bergsee bei Oberstdorf" fetchpriority="high" />
     </div>
   </div>
 
   <div class="hero__frame">
     <div class="hero__meta">
       <span class="meta__dot"></span>
-      <span>47° 24′ N&nbsp;&nbsp;·&nbsp;&nbsp;10° 16′ E</span>
+      <span>47° 24′ N&nbsp;&nbsp;·&nbsp;&nbsp;10° 14′ E</span>
       <span class="meta__sep">/</span>
       <span>Oberstdorf, Allgäu</span>
     </div>
@@ -932,17 +1041,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   </div>
 
   <div class="hero__foot">
-    <div class="foot__col">
-      <span class="foot__k">Heute</span>
-      <span class="foot__v">−2° · klar · Föhn aus Süd</span>
-    </div>
     <div class="foot__col foot__scroll">
       <span class="foot__line"></span>
       <span>weiter lesen</span>
-    </div>
-    <div class="foot__col foot__right">
-      <span class="foot__k">Saison</span>
-      <span class="foot__v">Offen bis 02. Nov. · Winter ab 18. Dez.</span>
     </div>
   </div>
 </section>
@@ -950,7 +1051,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <!-- ========== ROTATING MARK ========== -->
 <section class="markband" aria-hidden="true">
   <div class="markband__line"></div>
-  <img class="markband__mark" id="markRotator" src="assets/images/logo/leos_bergwelt_scrolling_symbol_neu.png" alt="" />
+  <img class="markband__mark" id="markRotator" src="assets/images/logo/leos_bergwelt_scrolling_symbol_neu.png?v=2" alt="" />
   <div class="markband__line"></div>
 </section>
 
@@ -959,14 +1060,13 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   <div class="intro__grid">
     <div class="intro__eyebrow">
       <span class="eyebrow__num">01</span>
-      <span class="eyebrow__label">Ein Ort, kein Produkt</span>
+      <span class="eyebrow__label">Ein Ort zum Wohlfühlen</span>
     </div>
     <h2 id="intro-h" class="intro__title">
-      Kein Hotel. Kein Apartment. <em>Ein Zuhause,</em> das man sich für ein paar Tage leiht — vom Fichtenholzgeruch bis zum Blick auf das Söllereck.
+      Ein Ort, <em>an dem man ankommt.</em> Und für ein paar Tage einfach <em>nichts muss.</em>
     </h2>
     <div class="intro__body">
       <p>Ideal für Wanderer, Skifahrer &amp; Naturfans! In Tiefenbach bei Oberstdorf vermieten wir eine komplette Etage mit 3 gemütlichen Doppelzimmern – perfekt für Freunde oder Paare. Jedes Zimmer hat ein komfortables Doppelbett.</p>
-      <p>Kein Check-in-Tresen. Keine Kunstblumen. Nur ein Schlüssel, ein warmer Ofen, und Brot aus der Backstube im Tal.</p>
     </div>
     <ul class="intro__facts">
       <li>
@@ -996,7 +1096,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <span class="eyebrow__num">02</span>
       <span class="eyebrow__label">Die Zimmer</span>
     </div>
-    <h2 id="stay-h" class="stay__title">Drei Räume, <em>jeder mit eigenem Horizont.</em></h2>
+    <h2 id="stay-h" class="stay__title">Drei Zimmer. <em>Drei Möglichkeiten anzukommen.</em></h2>
   </div>
 
   <div class="stay__grid">
@@ -1044,7 +1144,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <div class="room__meta">
         <span class="room__idx">Nr. II</span>
         <h3 class="room__name">ZITRONENFALTER</h3>
-        <p class="room__desc">Unter dem Dach. Schrägen aus Lärchenholz, ein Lesesessel, und am Horizont die Silhouette des Nebelhorns.</p>
+        <p class="room__desc">Stilvolles Zimmer mit Zugang zum Balkon und Blick auf die Berge.</p>
         <div class="room__line">
           <span>16 m²</span><span>·</span><span>2 Gäste</span><span>·</span><span>BALKON</span>
         </div>
@@ -1083,6 +1183,53 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <a class="link-arrow" href="zimmer.html">Zur Zimmerübersicht
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
+  </div>
+</section>
+
+<!-- ========== REVIEWS ========== -->
+<section class="reviews reveal" id="bewertungen" aria-labelledby="reviews-h">
+  <div class="reviews__inner">
+    <div class="eyebrow" style="margin-bottom: clamp(28px, 3vw, 40px);">
+      <span class="eyebrow__num">02½</span>
+      <span class="eyebrow__label">Was Gäste sagen</span>
+    </div>
+    <div class="reviews__head">
+      <blockquote class="reviews__hero" id="reviews-h">
+        Wir haben uns bei Leonie und Marius <em>total wohl gefühlt.</em> Die Unterkunft war sehr sauber, die Küche top ausgestattet und das Zimmer super gemütlich. Die Gegend ist sehr ruhig und vor allem traumhaft schön mit der Breitach quasi direkt vor der Tür.
+        <cite class="reviews__hero-cite">— Cosima · März 2026</cite>
+      </blockquote>
+      <div class="reviews__agg" aria-label="Bewertungs-Aggregat">
+        <span class="reviews__agg-rating">4,84</span>
+        <span class="reviews__agg-stars" aria-hidden="true">★ ★ ★ ★ ★</span>
+        <span class="reviews__agg-meta">
+          <span><strong>76</strong> Bewertungen</span>
+          <span>Superhost seit Mai 2025</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="reviews__grid">
+      <figure class="review">
+        <p class="review__text">Die Unterkunft war wie im Inserat beschrieben. Ich habe mich sehr wohl gefühlt. Supertoll, der Kaffeeautomat inklusive Kaffeebohnen! Auch die gemeinsame Nutzung von Küche und Bad war überhaupt kein Problem.</p>
+        <figcaption class="review__cite">Rita · Februar 2026</figcaption>
+      </figure>
+      <figure class="review">
+        <p class="review__text">Wir hatten eine sehr tolle Zeit und haben uns sehr wohl gefühlt. Perfekte Lage für Wanderungen und Ausflüge in und um Oberstdorf.</p>
+        <figcaption class="review__cite">Anna-Lena · Oktober 2025</figcaption>
+      </figure>
+      <figure class="review">
+        <p class="review__text">Schönes Zimmer, gemütliches Bett, Küche mit allem was man braucht, gute Busanbindung und schnelle Rückmeldung der beiden sobald man Fragen hatte. Ich bin rundum zufrieden und kann die Unterkunft nur empfehlen.</p>
+        <figcaption class="review__cite">Jana · Oktober 2025</figcaption>
+      </figure>
+    </div>
+
+    <div class="reviews__foot">
+      <span class="reviews__source">Bewertungen aus dem öffentlichen Airbnb-Gastebuch</span>
+      <a class="link-arrow" href="https://www.airbnb.de/users/profile/1470721123293710702" target="_blank" rel="noopener">
+        Alle 76 Bewertungen auf Airbnb lesen
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1156,19 +1303,21 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <img src="assets/images/from_outside/IMG_9751.webp" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
   </div>
   <div class="book__panel">
-    <div class="eyebrow eyebrow--light">
-      <span class="eyebrow__num">04</span>
-      <span class="eyebrow__label">Preise &amp; Buchung</span>
-    </div>
-    <h2 id="book-h" class="book__title">
-      Direkt buchen.<br/><em>Ohne Aufschlag.</em>
-    </h2>
-    <p class="book__sub">Hier buchst du direkt beim Gastgeber — ohne Booking.com- oder Airbnb-Gebühren. Die günstigsten Preise, die du für dieses Haus findest.</p>
-    <div class="book__cta">
-      <a class="btn btn--primary" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
-        <span>Verfügbarkeit prüfen</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+    <div class="book__copy">
+      <div class="eyebrow eyebrow--light">
+        <span class="eyebrow__num">04</span>
+        <span class="eyebrow__label">Preise &amp; Buchung</span>
+      </div>
+      <h2 id="book-h" class="book__title">
+        Direkt buchen.<br/><em>Ohne Aufschlag.</em>
+      </h2>
+      <p class="book__sub">Hier buchst du direkt beim Gastgeber — ohne Booking.com- oder Airbnb-Gebühren. Die günstigsten Preise, die du für dieses Haus findest.</p>
+      <div class="book__cta">
+        <a class="btn btn--primary" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+          <span>Verfügbarkeit prüfen</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
     </div>
 
     <div class="book__prices">
@@ -1218,7 +1367,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <footer class="foot" id="contact">
   <div class="foot__grid">
     <div class="foot__brand">
-      <img class="foot__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
+      <img class="foot__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png?v=2" alt="Leos Bergwelt" />
       <p class="foot__tag"><em>Leos Bergwelt.</em> Entspannte Urlaubstage in den Bergen um Oberstdorf. Drei liebevoll gestaltete Zimmer für deinen perfekten Urlaub in Tiefenbach bei Oberstdorf.</p>
     </div>
 
@@ -1244,9 +1393,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   </div>
 
   <div class="foot__base">
-    <span>© 2026 Leos Bergwelt · Familie Sommer</span>
+    <span>© 2026 Leos Bergwelt</span>
     <span class="foot__dot">·</span>
-    <span>Gebaut in den Bergen, gepflegt per Hand.</span>
+    <span>Gebaut in den Bergen.</span>
     <span class="foot__spacer"></span>
     <a href="#">Impressum</a>
     <a href="#">Datenschutz</a>

@@ -190,7 +190,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 /* ===== PAGE HERO ===== */
 .ph {
   position: relative;
-  height: clamp(500px, 62vh, 760px);
+  min-height: clamp(600px, 72vh, 820px);
+  padding-top: 100px;
   display: flex; flex-direction: column; justify-content: flex-end;
   overflow: hidden; color: oklch(0.97 0.01 85);
 }
@@ -361,6 +362,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   color: var(--stone-soft); margin-bottom: 24px; line-height: 1.6;
 }
 .ri__actions { display: flex; flex-direction: column; gap: 10px; }
+.ri__actions .btn { justify-content: center; }
 .ri__back {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
@@ -422,9 +424,9 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   padding: clamp(64px, 9vw, 120px) var(--pad);
 }
 .host__inner {
-  max-width: var(--maxw); margin: 0 auto;
+  max-width: 860px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 2fr;
-  gap: clamp(48px, 6vw, 96px); align-items: center;
+  gap: clamp(48px, 6vw, 80px); align-items: center;
 }
 .host__photo {
   aspect-ratio: 2 / 3; overflow: hidden; border-radius: 4px;
@@ -663,7 +665,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <span>›</span>
       <span style="color: oklch(0.95 0.01 85 / .8);">Enzian</span>
     </nav>
-    <p class="ph__eyebrow">Nr. I · Tiefenbach bei Oberstdorf</p>
+    <p class="ph__eyebrow">Tiefenbach bei Oberstdorf</p>
     <h1 class="ph__title">Zimmer<br><em>Enzian.</em></h1>
     <div class="ph__meta">
       <p class="ph__price"><span>ab</span> 53 € / Nacht</p>
@@ -691,10 +693,6 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
         <span class="qf__label">Self-Check-in</span>
       </li>
     </ul>
-    <a class="qf__cta" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
-      <span>Jetzt buchen</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
   </div>
 </div>
 
