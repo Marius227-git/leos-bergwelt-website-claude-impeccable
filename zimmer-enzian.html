@@ -132,10 +132,12 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   opacity: 0; transform: translateY(24px);
   transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
-.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.18s; opacity: 1; transform: none; }
-.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: none; }
-.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.32s; opacity: 1; transform: none; }
-.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.39s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.14s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.20s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.26s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.32s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(5) { transition-delay: 0.38s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(6) { transition-delay: 0.44s; opacity: 1; transform: none; }
 .mobile-menu__link {
   font-family: var(--serif); font-weight: 300;
   font-size: clamp(36px, 9vw, 58px); line-height: 1; letter-spacing: -0.02em;
@@ -245,14 +247,17 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 .qf__inner {
   max-width: var(--maxw); margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: clamp(16px, 3vw, 48px); flex-wrap: wrap;
 }
 .qf__list {
-  list-style: none; display: flex; align-items: center;
-  gap: clamp(20px, 4vw, 56px); flex-wrap: wrap;
+  list-style: none;
+  display: flex; width: 100%;
 }
-.qf__item { display: flex; flex-direction: column; gap: 3px; }
+.qf__item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 5px; padding: 8px 16px; text-align: center;
+  border-right: 1px solid var(--line-strong);
+}
+.qf__item:last-child { border-right: none; }
 .qf__val {
   font-family: var(--serif); font-size: clamp(18px, 2vw, 24px);
   font-weight: 300; letter-spacing: -0.01em; line-height: 1;
@@ -262,7 +267,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
   text-transform: uppercase; color: var(--stone);
 }
-.qf__divider { width: 1px; height: 32px; background: var(--line-strong); flex-shrink: 0; }
+.qf__divider { display: none; }
 .qf__cta {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--ink); color: var(--bg);
@@ -286,15 +291,15 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .gallery { display: flex; flex-direction: column; gap: 8px; }
 .gallery__lead {
   aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px;
-  background: var(--line); contain: layout; position: relative; cursor: zoom-in;
-  transition: aspect-ratio 0.3s var(--ease);
+  background: var(--bg); contain: layout; position: relative; cursor: zoom-in;
 }
-.gallery__lead--portrait { aspect-ratio: 3 / 4; }
 .gallery__lead img {
   width: 100%; height: 100%; object-fit: cover;
-  transition: transform 1s var(--ease), opacity 0.22s ease;
+  transition: transform 1s var(--ease), opacity 0.12s ease;
 }
+.gallery__lead--portrait img { object-fit: contain; }
 .gallery__lead:hover img { transform: scale(1.04); }
+.gallery__lead--portrait:hover img { transform: none; }
 .gallery__grid {
   display: grid; grid-template-columns: repeat(8, 1fr);
   gap: 6px;
@@ -422,7 +427,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   gap: clamp(48px, 6vw, 96px); align-items: center;
 }
 .host__photo {
-  aspect-ratio: 3 / 4; overflow: hidden; border-radius: 4px;
+  aspect-ratio: 2 / 3; overflow: hidden; border-radius: 4px;
   background: var(--line); contain: layout;
 }
 .host__photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -580,7 +585,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   .notes__inner { grid-template-columns: 1fr; gap: clamp(32px, 5vw, 56px); }
   .notes__label { position: static; }
   .host__inner { grid-template-columns: 1fr; }
-  .host__photo { aspect-ratio: 16 / 9; max-height: 420px; }
+  .host__photo { aspect-ratio: 4 / 3; max-height: 520px; }
   .foot__grid { grid-template-columns: 1fr 1fr; }
   .gallery__grid { grid-template-columns: repeat(6, 1fr); }
 }
@@ -589,7 +594,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   .nav__cta { padding: 9px 12px; }
   .nav__logo { height: 56px; }
   .qf__divider { display: none; }
-  .qf__inner { justify-content: flex-start; gap: 12px; }
+  .qf__item { padding: 6px 10px; }
   .qf__cta { display: none; }
   .gallery__grid { grid-template-columns: repeat(4, 1fr); }
   .foot__grid { grid-template-columns: 1fr; }
@@ -606,10 +611,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
     </a>
     <nav class="nav__links" aria-label="Hauptnavigation">
-      <a href="index.html">Startseite</a>
       <a href="zimmer.html" aria-current="page">Die Zimmer</a>
-      <a href="index.html#region">Region</a>
-      <a href="index.html#contact">Kontakt</a>
+      <a href="region.html">Region & Aktivitäten</a>
+      <a href="anreise.html">Anreise & Lage</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
     <a class="nav__cta" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
       <span>Jetzt buchen</span>
@@ -626,10 +632,12 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <!-- ========== MOBILE MENU ========== -->
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
   <nav class="mobile-menu__nav">
-    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html">Startseite</a></div>
     <div class="mobile-menu__item"><a class="mobile-menu__link" href="zimmer.html">Die Zimmer</a></div>
-    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#region">Region</a></div>
-    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#contact">Kontakt</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="region.html">Region & Aktivitäten</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="anreise.html">Anreise & Lage</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="ueber-uns.html">Über uns</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="bewertungen.html">Bewertungen</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="kontakt.html">Kontakt</a></div>
   </nav>
   <div class="mobile-menu__foot">
     <a class="mobile-menu__cta" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
@@ -671,16 +679,6 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <li class="qf__item">
         <span class="qf__val">200 × 200</span>
         <span class="qf__label">Doppelbett</span>
-      </li>
-      <div class="qf__divider" aria-hidden="true"></div>
-      <li class="qf__item">
-        <span class="qf__val">1. OG</span>
-        <span class="qf__label">Etage</span>
-      </li>
-      <div class="qf__divider" aria-hidden="true"></div>
-      <li class="qf__item">
-        <span class="qf__val">Glasfaser</span>
-        <span class="qf__label">WLAN kostenlos</span>
       </li>
       <div class="qf__divider" aria-hidden="true"></div>
       <li class="qf__item">
@@ -938,20 +936,21 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <p class="foot__tag"><em>Leos Bergwelt.</em> Entspannte Urlaubstage in den Bergen um Oberstdorf. Drei liebevoll gestaltete Zimmer für deinen perfekten Urlaub in Tiefenbach bei Oberstdorf.</p>
     </div>
     <div class="foot__col-nav">
-      <span class="foot__h">Besuchen</span>
+      <span class="foot__h">Entdecken</span>
       <a href="zimmer.html">Die Zimmer</a>
-      <a href="index.html#region">Die Region</a>
-      <a href="index.html#book">Preise &amp; Buchung</a>
-      <a href="#">Gutscheine</a>
+      <a href="region.html">Region &amp; Aktivitäten</a>
+      <a href="anreise.html">Anreise &amp; Lage</a>
+      <a href="faq.html">FAQ</a>
     </div>
     <div class="foot__col-nav">
-      <span class="foot__h">Kontakt</span>
-      <a href="mailto:info@leos-bergwelt.de">info@leos-bergwelt.de</a>
-      <a href="tel:+491234567890">+49 123 456 789</a>
+      <span class="foot__h">Leos Bergwelt</span>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="bewertungen.html">Bewertungen</a>
+      <a href="kontakt.html">Kontakt</a>
     </div>
     <div class="foot__col-nav">
       <span class="foot__h">Adresse</span>
-      <span style="color:var(--ink-soft);font-size:14px;line-height:1.65;">Tiefenbach<br>87561 Oberstdorf<br>Deutschland</span>
+      <span style="color:var(--ink-soft);font-size:14px;line-height:1.65;">Im Weidach 22<br>87561 Oberstdorf/Tiefenbach<br>Deutschland</span>
     </div>
   </div>
   <div class="foot__base">
@@ -983,16 +982,20 @@ const galleryIdx = document.getElementById('galleryIdx');
 thumbs.forEach((thumb, i) => {
   thumb.addEventListener('click', () => {
     const src = thumb.querySelector('img').src;
+    if (leadImg.src === src) return; // already shown, skip
     const alt = thumb.querySelector('img').alt;
     const isPortrait = thumb.dataset.portrait === 'true';
+
+    // Fade out, then on next frame swap src + fade in
     leadImg.style.opacity = '0';
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       leadImg.src = src;
       leadImg.alt = alt;
-      leadImg.style.opacity = '1';
-      // Portrait images get 3:4 lead container, landscape stay 4:3
       leadContainer.classList.toggle('gallery__lead--portrait', isPortrait);
-    }, 200);
+      // One more frame so browser paints the new src before fading in
+      requestAnimationFrame(() => { leadImg.style.opacity = '1'; });
+    });
+
     thumbs.forEach(t => t.classList.remove('is-active'));
     thumb.classList.add('is-active');
     galleryIdx.textContent = i + 1;

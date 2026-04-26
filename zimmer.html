@@ -130,10 +130,12 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   opacity: 0; transform: translateY(24px);
   transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
-.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.18s; opacity: 1; transform: none; }
-.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: none; }
-.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.32s; opacity: 1; transform: none; }
-.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.39s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.14s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.20s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.26s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.32s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(5) { transition-delay: 0.38s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(6) { transition-delay: 0.44s; opacity: 1; transform: none; }
 .mobile-menu__link {
   font-family: var(--serif); font-weight: 300;
   font-size: clamp(36px, 9vw, 58px); line-height: 1; letter-spacing: -0.02em;
@@ -501,10 +503,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
     </a>
     <nav class="nav__links" aria-label="Hauptnavigation">
-      <a href="index.html">Startseite</a>
       <a href="zimmer.html" aria-current="page">Die Zimmer</a>
-      <a href="index.html#region">Region</a>
-      <a href="index.html#contact">Kontakt</a>
+      <a href="region.html">Region & Aktivitäten</a>
+      <a href="anreise.html">Anreise & Lage</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
     <a class="nav__cta" href="index.html#book">
       <span>Verfügbarkeit</span>
@@ -521,10 +524,12 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 <!-- ========== MOBILE MENU ========== -->
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
   <nav class="mobile-menu__nav">
-    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html">Startseite</a></div>
     <div class="mobile-menu__item"><a class="mobile-menu__link" href="zimmer.html">Die Zimmer</a></div>
-    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#region">Region</a></div>
-    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#contact">Kontakt</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="region.html">Region & Aktivitäten</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="anreise.html">Anreise & Lage</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="ueber-uns.html">Über uns</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="bewertungen.html">Bewertungen</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="kontakt.html">Kontakt</a></div>
   </nav>
   <div class="mobile-menu__foot">
     <a class="mobile-menu__cta" href="index.html#book">
@@ -832,20 +837,21 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <p class="foot__tag"><em>Leos Bergwelt.</em> Entspannte Urlaubstage in den Bergen um Oberstdorf. Drei liebevoll gestaltete Zimmer für deinen perfekten Urlaub in Tiefenbach bei Oberstdorf.</p>
     </div>
     <div class="foot__col-nav">
-      <span class="foot__h">Besuchen</span>
+      <span class="foot__h">Entdecken</span>
       <a href="zimmer.html">Die Zimmer</a>
-      <a href="index.html#region">Die Region</a>
-      <a href="index.html#book">Preise &amp; Buchung</a>
-      <a href="#">Gutscheine</a>
+      <a href="region.html">Region &amp; Aktivitäten</a>
+      <a href="anreise.html">Anreise &amp; Lage</a>
+      <a href="faq.html">FAQ</a>
     </div>
     <div class="foot__col-nav">
-      <span class="foot__h">Kontakt</span>
-      <a href="mailto:info@leos-bergwelt.de">info@leos-bergwelt.de</a>
-      <a href="tel:+491234567890">+49 123 456 789</a>
+      <span class="foot__h">Leos Bergwelt</span>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="bewertungen.html">Bewertungen</a>
+      <a href="kontakt.html">Kontakt</a>
     </div>
     <div class="foot__col-nav">
       <span class="foot__h">Adresse</span>
-      <span style="color:var(--ink-soft);font-size:14px;line-height:1.65;">Tiefenbach<br>87561 Oberstdorf<br>Deutschland</span>
+      <span style="color:var(--ink-soft);font-size:14px;line-height:1.65;">Im Weidach 22<br>87561 Oberstdorf/Tiefenbach<br>Deutschland</span>
     </div>
   </div>
   <div class="foot__base">
