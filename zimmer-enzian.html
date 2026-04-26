@@ -545,6 +545,139 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .book__btn svg { width: 15px; height: 15px; transition: transform .4s var(--ease); }
 .book__btn:hover svg { transform: translateX(4px); }
 
+/* ===== REVIEWS ===== */
+.reviews {
+  background: var(--bg-warm);
+  padding: clamp(80px, 11vw, 140px) 0 clamp(70px, 10vw, 120px);
+  border-top: 1px solid var(--line);
+}
+.reviews__inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad);
+}
+.reviews__head {
+  display: grid; grid-template-columns: 1.5fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: end;
+  padding-bottom: clamp(40px, 5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+.reviews__hero {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(26px, 2.6vw, 38px); line-height: 1.32; letter-spacing: -0.005em;
+  color: var(--ink); text-wrap: pretty; margin: 0; max-width: 32ch;
+}
+.reviews__hero::before {
+  content: "\201C"; display: block;
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(64px, 7vw, 96px);
+  line-height: 0.6; color: var(--ember); margin-bottom: 12px;
+}
+.reviews__hero em { font-style: italic; color: var(--ember); }
+.reviews__hero-cite {
+  display: block; margin-top: 24px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone); font-weight: 400;
+}
+.reviews__agg {
+  display: flex; flex-direction: column; gap: 6px;
+  text-align: right; border-left: 1px solid var(--line);
+  padding-left: clamp(24px, 3vw, 40px);
+  align-self: stretch; justify-content: center;
+}
+.reviews__agg-rating {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(56px, 6vw, 88px); line-height: 1;
+  color: var(--ember); letter-spacing: -0.02em;
+}
+.reviews__agg-stars { font-size: 14px; letter-spacing: 0.15em; color: var(--ember-soft); margin: 4px 0 12px; }
+.reviews__agg-meta {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.reviews__agg-meta strong { color: var(--ink); font-weight: 500; }
+.reviews__grid { margin-top: clamp(40px, 5vw, 56px); }
+.reviews__track {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+}
+.reviews__dots { display: none; }
+.reviews__controls { display: none; }
+.review {
+  display: flex; flex-direction: column; gap: 18px;
+  padding: clamp(24px, 2.5vw, 32px) 0;
+  border-top: 1px solid transparent;
+}
+.review__text {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(15.5px, 1.15vw, 17px); line-height: 1.55;
+  color: var(--ink-soft); margin: 0; text-wrap: pretty;
+}
+.review__cite {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+  margin-top: auto; padding-top: 4px;
+}
+.review__cite::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--ember);
+}
+.reviews__foot {
+  margin-top: clamp(40px, 5vw, 56px);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 20px;
+  padding-top: clamp(28px, 3vw, 40px);
+  border-top: 1px solid var(--line);
+}
+.reviews__source {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--stone);
+}
+@media (max-width: 1024px) {
+  .reviews__head { grid-template-columns: 1fr; align-items: start; }
+  .reviews__agg {
+    border-left: none; border-top: 1px solid var(--line);
+    padding-left: 0; padding-top: 28px;
+    text-align: left; flex-direction: row; align-items: baseline;
+    flex-wrap: wrap; gap: 18px;
+  }
+  .reviews__track { grid-template-columns: 1fr; gap: 8px; }
+  .review { border-top: 1px solid var(--line); padding: 28px 0 4px; }
+}
+@media (max-width: 680px) {
+  .reviews__track {
+    display: flex; overflow-x: auto;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; gap: 0;
+  }
+  .reviews__track::-webkit-scrollbar { display: none; }
+  .reviews__track .review {
+    flex: 0 0 100%; scroll-snap-align: center;
+    border-top: 1px solid var(--line); padding: 32px 0 8px; min-width: 0;
+  }
+  .reviews__controls {
+    display: flex; align-items: center;
+    justify-content: space-between; margin-top: 24px; gap: 12px;
+  }
+  .reviews__dots { display: flex; gap: 8px; align-items: center; }
+  .reviews__dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--stone); border: none; cursor: pointer; padding: 0;
+    opacity: 0.35;
+    transition: background 0.2s, width 0.25s ease, border-radius 0.25s ease, opacity 0.2s;
+  }
+  .reviews__dot.active { background: var(--ember); width: 22px; border-radius: 4px; opacity: 1; }
+  .reviews__arrow {
+    width: 40px; height: 40px; border: 1px solid var(--line);
+    border-radius: 50%; background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink); flex-shrink: 0; padding: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .reviews__arrow:hover:not(:disabled) { background: var(--ember); border-color: var(--ember); color: oklch(0.97 0.01 85); }
+  .reviews__arrow:disabled { opacity: 0.25; cursor: default; }
+}
+
 /* ===== FOOTER ===== */
 .foot {
   background: var(--bg);
@@ -927,6 +1060,67 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   </div>
 </section>
 
+<!-- ========== REVIEWS ========== -->
+<section class="reviews reveal" id="bewertungen" aria-labelledby="reviews-h-enzian">
+  <div class="reviews__inner">
+    <div class="eyebrow" style="margin-bottom: clamp(28px, 3vw, 40px);">
+      <span class="eyebrow__label">Was Gäste sagen</span>
+    </div>
+    <div class="reviews__head">
+      <blockquote class="reviews__hero" id="reviews-h-enzian">
+        Wir haben uns bei Leonie und Marius <em>total wohl gefühlt.</em> Die Unterkunft war sehr sauber, die Küche top ausgestattet und das Zimmer super gemütlich. Die Gegend ist sehr ruhig und vor allem traumhaft schön mit der Breitach quasi direkt vor der Tür.
+        <cite class="reviews__hero-cite">— Cosima · März 2026</cite>
+      </blockquote>
+      <div class="reviews__agg" aria-label="Bewertungs-Aggregat">
+        <span class="reviews__agg-rating">4,84</span>
+        <span class="reviews__agg-stars" aria-hidden="true">★ ★ ★ ★ ★</span>
+        <span class="reviews__agg-meta">
+          <span><strong>76</strong> Bewertungen</span>
+          <span>Superhost seit Mai 2025</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="reviews__grid">
+      <div class="reviews__track">
+        <figure class="review">
+          <p class="review__text">Die Unterkunft war wie im Inserat beschrieben. Ich habe mich sehr wohl gefühlt. Supertoll, der Kaffeeautomat inklusive Kaffeebohnen! Auch die gemeinsame Nutzung von Küche und Bad war überhaupt kein Problem.</p>
+          <figcaption class="review__cite">Rita · Februar 2026</figcaption>
+        </figure>
+        <figure class="review">
+          <p class="review__text">Wir hatten eine sehr tolle Zeit und haben uns sehr wohl gefühlt. Perfekte Lage für Wanderungen und Ausflüge in und um Oberstdorf.</p>
+          <figcaption class="review__cite">Anna-Lena · Oktober 2025</figcaption>
+        </figure>
+        <figure class="review">
+          <p class="review__text">Schönes Zimmer, gemütliches Bett, Küche mit allem was man braucht, gute Busanbindung und schnelle Rückmeldung der beiden sobald man Fragen hatte. Ich bin rundum zufrieden und kann die Unterkunft nur empfehlen.</p>
+          <figcaption class="review__cite">Jana · Oktober 2025</figcaption>
+        </figure>
+      </div>
+      <div class="reviews__controls" aria-hidden="true">
+        <button class="reviews__arrow reviews__arrow--prev" disabled aria-label="Vorherige Bewertung">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <div class="reviews__dots">
+          <button class="reviews__dot active" data-idx="0" aria-label="Bewertung 1"></button>
+          <button class="reviews__dot" data-idx="1" aria-label="Bewertung 2"></button>
+          <button class="reviews__dot" data-idx="2" aria-label="Bewertung 3"></button>
+        </div>
+        <button class="reviews__arrow reviews__arrow--next" aria-label="Nächste Bewertung">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="reviews__foot">
+      <span class="reviews__source">Bewertungen aus dem öffentlichen Airbnb-Gastebuch</span>
+      <a class="link-arrow" href="https://www.airbnb.de/users/profile/1470721123293710702" target="_blank" rel="noopener">
+        Alle 76 Bewertungen auf Airbnb lesen
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ========== FOOTER ========== -->
 <footer class="foot" id="contact">
   <div class="foot__grid">
@@ -1025,6 +1219,45 @@ const closeMenu = () => {
 burger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
 mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// Reviews mobile slider (scroll-snap)
+(function() {
+  const track = document.querySelector('.reviews__track');
+  const dots = document.querySelectorAll('.reviews__dot');
+  const prevBtn = document.querySelector('.reviews__arrow--prev');
+  const nextBtn = document.querySelector('.reviews__arrow--next');
+  if (!track) return;
+  const total = track.children.length;
+  let current = 0;
+  const updateUI = (idx) => {
+    current = Math.max(0, Math.min(idx, total - 1));
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
+  };
+  const goTo = (idx) => {
+    if (window.innerWidth > 680) return;
+    idx = Math.max(0, Math.min(idx, total - 1));
+    const cardWidth = track.scrollWidth / total;
+    track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+    updateUI(idx);
+  };
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+  let scrollTimer;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      if (window.innerWidth > 680) return;
+      const cardWidth = track.scrollWidth / total;
+      const idx = Math.round(track.scrollLeft / cardWidth);
+      updateUI(idx);
+    }, 80);
+  }, { passive: true });
+  window.addEventListener('resize', () => { if (window.innerWidth > 680) { track.scrollLeft = 0; updateUI(0); } });
+  updateUI(0);
+})();
 
 // Accordion (Hinweise)
 document.querySelectorAll('.notes__item-head').forEach(head => {
