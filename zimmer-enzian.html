@@ -1,0 +1,1047 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Zimmer Enzian — Leos Bergwelt Oberstdorf</title>
+<meta name="description" content="Zimmer Enzian in Tiefenbach bei Oberstdorf. Selbstgebaute Möbel aus recyceltem Holz, Flachbild-TV mit Netflix, Glasfaser-WLAN. Ab 53 € / Nacht."/>
+<link rel="icon" href="assets/images/logo/leos_bergwelt_favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<style>
+/* ===== TOKENS ===== */
+:root {
+  --bg: oklch(0.97 0.005 85);
+  --bg-warm: oklch(0.94 0.008 82);
+  --ink: oklch(0.20 0.015 150);
+  --ink-soft: oklch(0.32 0.012 140);
+  --stone: oklch(0.40 0.010 95);
+  --stone-soft: oklch(0.72 0.006 90);
+  --line: oklch(0.85 0.008 85);
+  --line-strong: oklch(0.78 0.01 85);
+  --ember: oklch(0.55 0.09 55);
+  --ember-soft: oklch(0.70 0.06 60);
+  --dark: oklch(0.18 0.012 150);
+  --dark-paper: oklch(0.22 0.014 145);
+  --serif: 'Spectral', Georgia, serif;
+  --sans: 'Barlow', system-ui, sans-serif;
+  --mono: 'Chivo Mono', 'Courier New', monospace;
+  --ease: cubic-bezier(0.34, 0, 0.14, 1);
+  --maxw: 1280px;
+  --pad: clamp(20px, 4vw, 64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans); font-size: 16px; font-weight: 400;
+  line-height: 1.6; background: var(--bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; }
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: 18px var(--pad);
+  transition: background .5s var(--ease), backdrop-filter .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease);
+  border-bottom: 1px solid transparent;
+  color: oklch(0.96 0.008 85);
+}
+.nav--scrolled {
+  background: color-mix(in oklab, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.2) blur(12px);
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+  border-bottom-color: var(--line);
+  color: var(--ink);
+}
+.nav__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: center; gap: 32px;
+}
+.nav__mark { display: flex; align-items: center; gap: 10px; }
+.nav__logo {
+  display: block; width: auto; height: clamp(44px, 5.6vw, 64px);
+  transform-origin: left center;
+  filter: brightness(0) invert(1);
+  transition: filter .5s var(--ease);
+}
+.nav--scrolled .nav__logo { filter: none; }
+.nav__links {
+  display: flex; gap: 28px; margin-left: auto;
+  font-size: 13.5px; letter-spacing: .04em;
+}
+.nav__links a { position: relative; padding: 4px 0; }
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease);
+}
+.nav__links a:hover::after,
+.nav__links a[aria-current="page"]::after { transform: scaleX(1); }
+.nav__links a[aria-current="page"]::after { opacity: .5; }
+.nav__cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid currentColor; border-radius: 999px;
+  padding: 9px 16px 9px 18px; font-size: 13px; letter-spacing: .04em;
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+.nav__cta svg { width: 14px; height: 14px; transition: transform .35s var(--ease); }
+.nav__cta:hover { background: var(--ember); border-color: var(--ember); color: oklch(0.97 0.01 85); }
+.nav--scrolled .nav__cta:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.nav__cta:hover svg { transform: translateX(3px); }
+
+/* ===== HAMBURGER ===== */
+.nav__burger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 36px; height: 36px; padding: 6px;
+  cursor: pointer; flex-shrink: 0;
+}
+.burger__line {
+  display: block; width: 20px; height: 1.5px;
+  background: currentColor; border-radius: 2px; transform-origin: center;
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.3s ease;
+}
+.nav__burger.is-open .burger__line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__burger.is-open .burger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__burger.is-open .burger__line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 48;
+  background: oklch(0.11 0.028 145);
+  color: oklch(0.95 0.01 85);
+  clip-path: circle(0% at calc(100% - 38px) 38px);
+  transition: clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: clamp(32px, 8vw, 80px) var(--pad);
+  overflow: hidden;
+}
+.mobile-menu.is-open { clip-path: circle(200% at calc(100% - 38px) 38px); pointer-events: all; }
+.mobile-menu__nav { display: flex; flex-direction: column; gap: 4px; margin-bottom: clamp(40px, 8vw, 64px); }
+.mobile-menu__item {
+  display: flex; align-items: baseline;
+  padding: clamp(14px, 3vw, 20px) 0;
+  border-bottom: 1px solid oklch(0.95 0.01 85 / .1);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.mobile-menu.is-open .mobile-menu__item:nth-child(1) { transition-delay: 0.18s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(3) { transition-delay: 0.32s; opacity: 1; transform: none; }
+.mobile-menu.is-open .mobile-menu__item:nth-child(4) { transition-delay: 0.39s; opacity: 1; transform: none; }
+.mobile-menu__link {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(36px, 9vw, 58px); line-height: 1; letter-spacing: -0.02em;
+  transition: color 0.3s ease, transform 0.3s ease; display: block;
+}
+.mobile-menu__link:hover { color: var(--ember); transform: translateX(6px); }
+.mobile-menu__foot {
+  display: flex; flex-direction: column; gap: 20px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.45s ease 0.46s, transform 0.45s ease 0.46s;
+}
+.mobile-menu.is-open .mobile-menu__foot { opacity: 1; transform: none; }
+.mobile-menu__cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid oklch(0.95 0.01 85 / .4); border-radius: 999px; padding: 12px 20px;
+  transition: background 0.3s ease, border-color 0.3s ease; align-self: flex-start;
+}
+.mobile-menu__cta:hover { background: var(--ember); border-color: var(--ember); }
+.mobile-menu__cta svg { width: 14px; height: 14px; }
+.mobile-menu__loc {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: oklch(0.95 0.01 85 / .3);
+}
+
+/* ===== UTILITIES ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  border-radius: 999px; padding: 12px 22px 12px 24px;
+  font-size: 13.5px; letter-spacing: .04em;
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+  border: 1px solid transparent;
+}
+.btn svg { width: 15px; height: 15px; transition: transform .4s var(--ease); }
+.btn:hover svg { transform: translateX(4px); }
+.btn--primary { background: var(--ink); color: var(--bg); }
+.btn--primary:hover { background: var(--ember); }
+.btn--outline {
+  background: transparent; color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn--outline:hover { border-color: var(--ember); color: var(--ember); }
+
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ===== PAGE HERO ===== */
+.ph {
+  position: relative;
+  height: clamp(500px, 62vh, 760px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden; color: oklch(0.97 0.01 85);
+}
+.ph__media { position: absolute; inset: 0; z-index: 0; }
+.ph__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,6,4,.20) 0%, rgba(8,6,4,.04) 35%, rgba(8,6,4,.72) 100%);
+}
+.ph__frame {
+  position: relative; z-index: 1;
+  max-width: var(--maxw); width: 100%; margin: 0 auto;
+  padding: 0 var(--pad) clamp(40px, 6vw, 80px);
+}
+.ph__breadcrumb {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: oklch(0.95 0.01 85 / .55); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ph__breadcrumb a { transition: color .3s; }
+.ph__breadcrumb a:hover { color: oklch(0.95 0.01 85 / .9); }
+.ph__breadcrumb span { color: oklch(0.95 0.01 85 / .3); }
+.ph__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: oklch(0.95 0.01 85 / .6); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 14px;
+}
+.ph__eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--ember-soft); }
+.ph__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(56px, 10vw, 130px);
+  line-height: .90; letter-spacing: -0.03em; margin-bottom: 20px;
+}
+.ph__title em { font-style: italic; color: var(--ember-soft); }
+.ph__meta {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+}
+.ph__price {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(18px, 2vw, 24px); letter-spacing: -0.01em;
+}
+.ph__price span { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: oklch(0.95 0.01 85 / .55); margin-right: 6px; }
+.ph__badge {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--ember); color: oklch(0.97 0.01 85);
+  border-radius: 999px; padding: 5px 12px;
+}
+
+/* ===== QUICK FACTS ===== */
+.qf {
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(24px, 3.5vw, 40px) var(--pad);
+}
+.qf__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: clamp(16px, 3vw, 48px); flex-wrap: wrap;
+}
+.qf__list {
+  list-style: none; display: flex; align-items: center;
+  gap: clamp(20px, 4vw, 56px); flex-wrap: wrap;
+}
+.qf__item { display: flex; flex-direction: column; gap: 3px; }
+.qf__val {
+  font-family: var(--serif); font-size: clamp(18px, 2vw, 24px);
+  font-weight: 300; letter-spacing: -0.01em; line-height: 1;
+  color: var(--ember);
+}
+.qf__label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--stone);
+}
+.qf__divider { width: 1px; height: 32px; background: var(--line-strong); flex-shrink: 0; }
+.qf__cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--ink); color: var(--bg);
+  border-radius: 999px; padding: 11px 20px 11px 22px;
+  font-size: 13px; letter-spacing: .04em; flex-shrink: 0;
+  transition: background .3s var(--ease);
+}
+.qf__cta:hover { background: var(--ember); }
+.qf__cta svg { width: 14px; height: 14px; transition: transform .35s var(--ease); }
+.qf__cta:hover svg { transform: translateX(3px); }
+
+/* ===== MAIN LAYOUT ===== */
+.room-main {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: clamp(56px, 8vw, 100px) var(--pad);
+  display: grid; grid-template-columns: 60fr 40fr;
+  gap: clamp(48px, 6vw, 96px); align-items: start;
+}
+
+/* ===== GALLERY ===== */
+.gallery { display: flex; flex-direction: column; gap: 8px; }
+.gallery__lead {
+  aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px;
+  background: var(--line); contain: layout; position: relative; cursor: zoom-in;
+  transition: aspect-ratio 0.3s var(--ease);
+}
+.gallery__lead--portrait { aspect-ratio: 3 / 4; }
+.gallery__lead img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--ease), opacity 0.22s ease;
+}
+.gallery__lead:hover img { transform: scale(1.04); }
+.gallery__grid {
+  display: grid; grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+.gallery__thumb {
+  aspect-ratio: 1; overflow: hidden; border-radius: 2px;
+  background: var(--line); contain: layout; cursor: pointer;
+  transition: outline-offset .2s ease;
+}
+.gallery__thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s var(--ease), opacity 0.3s;
+}
+.gallery__thumb:hover img { transform: scale(1.12); opacity: .85; }
+.gallery__thumb.is-active { outline: 2px solid var(--ember); outline-offset: 2px; }
+.gallery__counter {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--stone-soft);
+  text-align: right; padding-top: 2px;
+}
+
+/* ===== ROOM INFO PANEL ===== */
+.room-info { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 0; }
+.ri__idx {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ember); margin-bottom: 6px;
+}
+.ri__name {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(40px, 4.5vw, 58px);
+  line-height: .93; letter-spacing: -0.025em; margin-bottom: 8px;
+}
+.ri__tagline {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(15px, 1.4vw, 18px); color: var(--ink-soft); margin-bottom: 28px;
+  line-height: 1.45;
+}
+.ri__features {
+  list-style: none;
+  border-top: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+.ri__feature {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+  gap: 12px;
+}
+.rf__label { color: var(--stone); font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; }
+.rf__val { font-family: var(--serif); font-weight: 400; font-size: 15px; text-align: right; }
+.rf__val--highlight { color: var(--ember); font-style: italic; }
+.ri__price {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 20px;
+}
+.rp__from { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); }
+.rp__num { font-family: var(--serif); font-size: clamp(32px, 3.2vw, 44px); font-weight: 300; letter-spacing: -0.01em; }
+.rp__unit { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--stone); }
+.ri__note {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--stone-soft); margin-bottom: 24px; line-height: 1.6;
+}
+.ri__actions { display: flex; flex-direction: column; gap: 10px; }
+.ri__back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--stone); transition: color .3s; margin-top: 8px; align-self: flex-start;
+}
+.ri__back svg { width: 12px; height: 12px; transition: transform .3s var(--ease); }
+.ri__back:hover { color: var(--ink); }
+.ri__back:hover svg { transform: translateX(-3px); }
+
+/* ===== DESCRIPTION SECTIONS ===== */
+.desc-wrap {
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+.desc-wrap__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: clamp(64px, 9vw, 120px) var(--pad);
+  display: grid; grid-template-columns: 5fr 7fr;
+  gap: clamp(48px, 7vw, 112px); align-items: start;
+}
+.desc-wrap__label {
+  position: sticky; top: 112px;
+}
+.desc-wrap__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ember); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.desc-wrap__eyebrow::before { content: ""; display: block; width: 24px; height: 1px; background: var(--ember-soft); }
+.desc-wrap__heading {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(28px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em;
+}
+.desc-wrap__heading em { font-style: italic; color: var(--ember); }
+
+.desc-body { display: flex; flex-direction: column; gap: 32px; }
+.desc-block {
+  padding-bottom: 32px;
+}
+.desc-block + .desc-block { border-top: 1px solid var(--line); padding-top: 32px; }
+.desc-block__icon {
+  font-size: 20px; margin-bottom: 12px; line-height: 1;
+}
+.desc-block__title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(17px, 1.8vw, 21px); letter-spacing: -0.01em; margin-bottom: 12px;
+  line-height: 1.3;
+}
+.desc-block__text {
+  font-size: 15.5px; line-height: 1.76; color: var(--ink-soft);
+}
+.desc-block__text + .desc-block__text { margin-top: 14px; }
+
+/* ===== HOST SECTION ===== */
+.host {
+  background: var(--bg-warm);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(64px, 9vw, 120px) var(--pad);
+}
+.host__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: clamp(48px, 6vw, 96px); align-items: center;
+}
+.host__photo {
+  aspect-ratio: 3 / 4; overflow: hidden; border-radius: 4px;
+  background: var(--line); contain: layout;
+}
+.host__photo img { width: 100%; height: 100%; object-fit: cover; }
+.host__content { display: flex; flex-direction: column; gap: 24px; }
+.host__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ember); display: flex; align-items: center; gap: 12px;
+}
+.host__eyebrow::before { content: ""; display: block; width: 24px; height: 1px; background: var(--ember-soft); }
+.host__heading {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(30px, 3.5vw, 50px); line-height: 1.08; letter-spacing: -0.02em;
+}
+.host__heading em { font-style: italic; color: var(--ember); }
+.host__text {
+  font-size: 15.5px; line-height: 1.76; color: var(--ink-soft); max-width: 54ch;
+}
+.host__text + .host__text { margin-top: -8px; }
+
+/* ===== HINWEISE (NOTES) ===== */
+.notes {
+  padding: clamp(64px, 9vw, 120px) var(--pad);
+  border-bottom: 1px solid var(--line);
+}
+.notes__inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 5fr 7fr;
+  gap: clamp(48px, 7vw, 112px); align-items: start;
+}
+.notes__label {
+  position: sticky; top: 112px;
+}
+.notes__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ember); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.notes__eyebrow::before { content: ""; display: block; width: 24px; height: 1px; background: var(--ember-soft); }
+.notes__heading {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(28px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em;
+}
+.notes__heading em { font-style: italic; color: var(--ember); }
+
+.notes__list { list-style: none; }
+.notes__item {
+  padding: clamp(18px, 2.5vw, 26px) 0;
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.notes__item:first-child { border-top: 1px solid var(--line); }
+.notes__item-head {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--serif); font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 400; letter-spacing: -0.01em; cursor: pointer;
+  justify-content: space-between;
+}
+.notes__item-title { display: flex; align-items: center; gap: 12px; }
+.notes__item-icon { font-size: 16px; flex-shrink: 0; }
+.notes__item-chevron {
+  flex-shrink: 0; transition: transform .4s var(--ease);
+}
+.notes__item.is-open .notes__item-chevron { transform: rotate(180deg); }
+.notes__item-body {
+  font-size: 15px; line-height: 1.74; color: var(--ink-soft);
+  overflow: hidden;
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .4s var(--ease);
+}
+.notes__item.is-open .notes__item-body { grid-template-rows: 1fr; }
+.notes__item-inner { overflow: hidden; padding-top: 4px; }
+
+/* ===== BOOKING CTA ===== */
+.book {
+  position: relative; min-height: 520px;
+  display: grid; align-items: center;
+  padding: clamp(80px, 12vw, 140px) var(--pad);
+  overflow: hidden; color: oklch(0.95 0.01 85);
+}
+.book__media { position: absolute; inset: 0; z-index: 0; }
+.book__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(8,6,4,.84) 0%, rgba(8,6,4,.52) 60%, rgba(8,6,4,.32) 100%);
+}
+.book__media img { width: 100%; height: 100%; object-fit: cover; }
+.book__panel {
+  position: relative; z-index: 1; max-width: var(--maxw); width: 100%; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 20px; align-items: flex-start; max-width: 48ch;
+}
+.book__eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: oklch(0.88 0.01 85 / .5); display: flex; align-items: center; gap: 14px;
+}
+.book__eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--ember-soft); }
+.book__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(36px, 4.5vw, 68px); line-height: .96; letter-spacing: -0.025em;
+}
+.book__title em { font-style: italic; color: var(--ember-soft); }
+.book__sub {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(15px, 1.4vw, 17px); color: oklch(0.88 0.01 85 / .68);
+}
+.book__btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: oklch(0.97 0.01 85); color: var(--ink);
+  border-radius: 999px; padding: 14px 26px 14px 28px;
+  font-size: 13.5px; letter-spacing: .04em; margin-top: 8px;
+  transition: background .35s var(--ease), color .35s var(--ease);
+}
+.book__btn:hover { background: var(--ember); color: oklch(0.97 0.01 85); }
+.book__btn svg { width: 15px; height: 15px; transition: transform .4s var(--ease); }
+.book__btn:hover svg { transform: translateX(4px); }
+
+/* ===== FOOTER ===== */
+.foot {
+  background: var(--bg);
+  padding: clamp(60px, 8vw, 100px) var(--pad) 0;
+}
+.foot__grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(32px, 4vw, 72px);
+  padding-bottom: clamp(60px, 8vw, 96px);
+  border-bottom: 1px solid var(--line);
+}
+.foot__brand { display: flex; flex-direction: column; gap: 22px; max-width: 42ch; }
+.foot__logo { width: auto; height: 96px; display: block; object-fit: contain; object-position: left center; max-width: 200px; }
+.foot__tag { font-family: var(--serif); font-size: 17px; font-weight: 300; line-height: 1.55; color: var(--ink-soft); }
+.foot__tag em { font-style: italic; }
+.foot__col-nav { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.foot__h { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+.foot__col-nav a { color: var(--ink-soft); transition: color .3s var(--ease); }
+.foot__col-nav a:hover { color: var(--ember); }
+.foot__base {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  padding: 20px 0 28px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--stone-soft);
+}
+.foot__spacer { margin-left: auto; }
+.foot__base a { transition: color .3s var(--ease); }
+.foot__base a:hover { color: var(--ink); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .nav__links { display: none; }
+  .nav__cta { margin-left: auto; }
+  .nav__burger { display: flex; }
+  .room-main { grid-template-columns: 1fr; }
+  .room-info { position: static; }
+  .desc-wrap__inner { grid-template-columns: 1fr; gap: clamp(32px, 5vw, 56px); }
+  .desc-wrap__label { position: static; }
+  .notes__inner { grid-template-columns: 1fr; gap: clamp(32px, 5vw, 56px); }
+  .notes__label { position: static; }
+  .host__inner { grid-template-columns: 1fr; }
+  .host__photo { aspect-ratio: 16 / 9; max-height: 420px; }
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+  .gallery__grid { grid-template-columns: repeat(6, 1fr); }
+}
+@media (max-width: 680px) {
+  .nav__cta span { display: none; }
+  .nav__cta { padding: 9px 12px; }
+  .nav__logo { height: 56px; }
+  .qf__divider { display: none; }
+  .qf__inner { justify-content: flex-start; gap: 12px; }
+  .qf__cta { display: none; }
+  .gallery__grid { grid-template-columns: repeat(4, 1fr); }
+  .foot__grid { grid-template-columns: 1fr; }
+  .ph__meta { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__mark" href="index.html" aria-label="Leos Bergwelt — Startseite">
+      <img class="nav__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
+    </a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a href="index.html">Startseite</a>
+      <a href="zimmer.html" aria-current="page">Die Zimmer</a>
+      <a href="index.html#region">Region</a>
+      <a href="index.html#contact">Kontakt</a>
+    </nav>
+    <a class="nav__cta" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+      <span>Jetzt buchen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+  <nav class="mobile-menu__nav">
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html">Startseite</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="zimmer.html">Die Zimmer</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#region">Region</a></div>
+    <div class="mobile-menu__item"><a class="mobile-menu__link" href="index.html#contact">Kontakt</a></div>
+  </nav>
+  <div class="mobile-menu__foot">
+    <a class="mobile-menu__cta" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+      <span>Jetzt buchen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <span class="mobile-menu__loc">Oberstdorf, Allgäu</span>
+  </div>
+</div>
+
+<main>
+
+<!-- ========== PAGE HERO ========== -->
+<section class="ph">
+  <div class="ph__media">
+    <img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_1.webp" alt="Zimmer Enzian — Leos Bergwelt Oberstdorf" fetchpriority="high" />
+  </div>
+  <div class="ph__frame">
+    <nav class="ph__breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Leos Bergwelt</a>
+      <span>›</span>
+      <a href="zimmer.html">Die Zimmer</a>
+      <span>›</span>
+      <span style="color: oklch(0.95 0.01 85 / .8);">Enzian</span>
+    </nav>
+    <p class="ph__eyebrow">Nr. I · Tiefenbach bei Oberstdorf</p>
+    <h1 class="ph__title">Zimmer<br><em>Enzian.</em></h1>
+    <div class="ph__meta">
+      <p class="ph__price"><span>ab</span> 53 € / Nacht</p>
+      <span class="ph__badge">Bestseller</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== QUICK FACTS ========== -->
+<div class="qf">
+  <div class="qf__inner">
+    <ul class="qf__list">
+      <li class="qf__item">
+        <span class="qf__val">200 × 200</span>
+        <span class="qf__label">Doppelbett</span>
+      </li>
+      <div class="qf__divider" aria-hidden="true"></div>
+      <li class="qf__item">
+        <span class="qf__val">1. OG</span>
+        <span class="qf__label">Etage</span>
+      </li>
+      <div class="qf__divider" aria-hidden="true"></div>
+      <li class="qf__item">
+        <span class="qf__val">Glasfaser</span>
+        <span class="qf__label">WLAN kostenlos</span>
+      </li>
+      <div class="qf__divider" aria-hidden="true"></div>
+      <li class="qf__item">
+        <span class="qf__val">Netflix</span>
+        <span class="qf__label">Flachbild-TV</span>
+      </li>
+      <div class="qf__divider" aria-hidden="true"></div>
+      <li class="qf__item">
+        <span class="qf__val">Codeschloss</span>
+        <span class="qf__label">Self-Check-in</span>
+      </li>
+    </ul>
+    <a class="qf__cta" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+      <span>Jetzt buchen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ========== GALLERY + INFO ========== -->
+<div class="room-main">
+
+  <!-- Gallery -->
+  <div class="gallery reveal">
+    <div class="gallery__lead" id="galleryLead">
+      <img id="leadImg"
+        src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_1.webp"
+        alt="Zimmer Enzian — Hauptansicht" loading="lazy" />
+    </div>
+    <div class="gallery__grid" id="galleryGrid">
+      <div class="gallery__thumb is-active"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_1.webp" alt="Enzian 1" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_2.webp" alt="Enzian 2" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_3_r.webp" alt="Enzian 3" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_4.webp" alt="Enzian 4" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_5.webp" alt="Enzian 5" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_6.webp" alt="Enzian 6" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_7.webp" alt="Enzian 7" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_8_r.webp" alt="Enzian 8" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_9_r.webp" alt="Enzian 9" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_10.webp" alt="Enzian 10" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_11_r.webp" alt="Enzian 11" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_12.webp" alt="Enzian 12" loading="lazy" /></div>
+      <div class="gallery__thumb"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_13.webp" alt="Enzian 13" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_14_r.webp" alt="Enzian 14" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_15_r.webp" alt="Enzian 15" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_enzian/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_enzian_16_r.webp" alt="Enzian 16" loading="lazy" /></div>
+    </div>
+    <p class="gallery__counter"><span id="galleryIdx">1</span> / 16</p>
+  </div>
+
+  <!-- Info panel -->
+  <div class="room-info reveal">
+    <p class="ri__idx">Nr. I</p>
+    <h2 class="ri__name">Enzian</h2>
+    <p class="ri__tagline">Ruhig. Preislich am attraktivsten. Kein Balkon.</p>
+    <ul class="ri__features">
+      <li class="ri__feature">
+        <span class="rf__label">Bett</span>
+        <span class="rf__val">Doppelbett 200 × 200 cm</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">Etage</span>
+        <span class="rf__val">1. Obergeschoss</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">Balkon</span>
+        <span class="rf__val">Nein</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">TV</span>
+        <span class="rf__val">Flachbild-TV mit Netflix</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">WLAN</span>
+        <span class="rf__val">Glasfaser · kostenlos</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">Verdunkelung</span>
+        <span class="rf__val">Plissees</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">Parkplatz</span>
+        <span class="rf__val">Kostenlos · 2–4 Min. zu Fuß</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">Check-in</span>
+        <span class="rf__val">Self-Check-in · Codeschloss</span>
+      </li>
+      <li class="ri__feature">
+        <span class="rf__label">Highlight</span>
+        <span class="rf__val rf__val--highlight">Günstigstes Zimmer · Bestseller</span>
+      </li>
+    </ul>
+    <div class="ri__price">
+      <span class="rp__from">ab</span>
+      <span class="rp__num">53 €</span>
+      <span class="rp__unit">/ Nacht</span>
+    </div>
+    <p class="ri__note">Küche &amp; Bad werden gemeinschaftlich genutzt.<br>Kurtaxe 4,15 € / Person / Nacht zzgl.</p>
+    <div class="ri__actions">
+      <a class="btn btn--primary" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+        <span>Jetzt buchen</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="btn btn--outline" href="zimmer.html">
+        <span>Alle drei Zimmer vergleichen</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <a class="ri__back" href="zimmer.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zurück zur Zimmerübersicht
+    </a>
+  </div>
+
+</div>
+
+<!-- ========== BESCHREIBUNG ========== -->
+<section class="desc-wrap reveal">
+  <div class="desc-wrap__inner">
+    <div class="desc-wrap__label">
+      <p class="desc-wrap__eyebrow">Das Zimmer</p>
+      <h2 class="desc-wrap__heading">Natürlich,<br>schlicht und<br><em>ganz entspannt.</em></h2>
+    </div>
+    <div class="desc-body">
+
+      <div class="desc-block">
+        <p class="desc-block__text">Ideal für Wanderer, Skifahrer &amp; Naturfans! In Tiefenbach bei Oberstdorf vermieten wir eine komplette Etage mit 3 gemütlichen Doppelzimmern – perfekt für Freunde oder Paare. Jedes Zimmer hat ein komfortables Doppelbett. Eine Gemeinschaftsküche und ein gemeinsam genutztes Bad sowie ein zusätzliches Gäste-WC stehen euch zur Verfügung. Ruhige Lage nahe der Breitachklamm – perfekt als Ausgangspunkt für Bergtouren und Skitage!</p>
+      </div>
+
+      <div class="desc-block">
+        <div class="desc-block__icon">🌿</div>
+        <h3 class="desc-block__title">Zimmer Enzian – gemütlich, individuell &amp; nachhaltig</h3>
+        <p class="desc-block__text">Unser Zimmer Enzian vereint Natürlichkeit mit Komfort: Das Doppelbett und die Möbel wurden liebevoll aus recyceltem Holz selbst gebaut – jedes Stück ist ein Unikat mit Charakter.</p>
+      </div>
+
+      <div class="desc-block">
+        <div class="desc-block__icon">📺</div>
+        <p class="desc-block__text">Für entspannte Abende gibt's einen Flachbild-TV mit Netflix, dazu eine kuschelige Sitzecke, perfekt zum Lesen oder Abschalten.</p>
+      </div>
+
+      <div class="desc-block">
+        <div class="desc-block__icon">💡</div>
+        <p class="desc-block__text">Plissees sorgen für angenehme Verdunkelung, und dank schnellem Glasfaser-WLAN bleibst du auch digital bestens verbunden.</p>
+      </div>
+
+      <div class="desc-block">
+        <div class="desc-block__icon">🧥</div>
+        <p class="desc-block__text">Eine Garderobe bietet Platz für Jacken, Wanderschuhe &amp; Co. Ein Ort zum Wohlfühlen – natürlich, schlicht und ganz entspannt.</p>
+      </div>
+
+      <div class="desc-block">
+        <div class="desc-block__icon">🅿️</div>
+        <p class="desc-block__text">Kostenlose Parkplätze befinden sich 2–4 Gehminuten entfernt.</p>
+      </div>
+
+      <div class="desc-block">
+        <div class="desc-block__icon">🔓</div>
+        <p class="desc-block__text">Der Zugang zum Haus erfolgt bequem über ein Codeschloss – den Zugangscode erhaltet ihr rechtzeitig vor eurer Anreise.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== GASTGEBER ========== -->
+<section class="host reveal">
+  <div class="host__inner">
+    <div class="host__photo">
+      <img src="assets/images/about_us/leos_bergwelt_leonie_pinn_marius_wigge_gastgeber.webp" alt="Leonie &amp; Marius — Gastgeber Leos Bergwelt" loading="lazy" />
+    </div>
+    <div class="host__content">
+      <p class="host__eyebrow">Während deines Aufenthaltes</p>
+      <h2 class="host__heading">Wir sind da,<br>wenn ihr uns<br><em>braucht.</em></h2>
+      <p class="host__text">Wir sind selbst leidenschaftliche Outdoor-Fans und kennen die schönsten Touren, Gipfel und Einkehrmöglichkeiten der Region – egal ob Wandern, Skifahren oder einfach Natur genießen.</p>
+      <p class="host__text">Gerne geben wir euch persönliche Tipps für eure Ausflüge oder helfen bei der Planung.</p>
+      <p class="host__text">Ihr erreicht uns jederzeit per Nachricht, Anruf oder persönlich vor Ort – wir sind da, wenn ihr uns braucht, lassen euch aber gleichzeitig euren Freiraum.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WICHTIGE HINWEISE ========== -->
+<section class="notes reveal">
+  <div class="notes__inner">
+    <div class="notes__label">
+      <p class="notes__eyebrow">Vor der Anreise</p>
+      <h2 class="notes__heading">Weitere<br>wichtige<br><em>Hinweise.</em></h2>
+    </div>
+    <ul class="notes__list">
+
+      <li class="notes__item">
+        <div class="notes__item-head" role="button" tabindex="0" aria-expanded="false">
+          <span class="notes__item-title">
+            <span class="notes__item-icon">📋</span>
+            <span>Anmeldung bei Oberstdorf</span>
+          </span>
+          <svg class="notes__item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="notes__item-body">
+          <p class="notes__item-inner">Für die Anmeldung bei Oberstdorf brauchen wir von allen Gästen die vollen Namen und Geburtsdaten sowie eine Adresse und eine Mailadresse. Die Informationen können uns im Airbnb Chat geschickt werden.</p>
+        </div>
+      </li>
+
+      <li class="notes__item">
+        <div class="notes__item-head" role="button" tabindex="0" aria-expanded="false">
+          <span class="notes__item-title">
+            <span class="notes__item-icon">💶</span>
+            <span>Kurtaxe</span>
+          </span>
+          <svg class="notes__item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="notes__item-body">
+          <p class="notes__item-inner">Es fällt pro Tag eine Kurtaxe von 4,15 € pro Person pro Nacht an.</p>
+        </div>
+      </li>
+
+      <li class="notes__item">
+        <div class="notes__item-head" role="button" tabindex="0" aria-expanded="false">
+          <span class="notes__item-title">
+            <span class="notes__item-icon">🎟️</span>
+            <span>Oberstdorf Pass</span>
+          </span>
+          <svg class="notes__item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="notes__item-body">
+          <p class="notes__item-inner">Unsere Gäste erhalten den Oberstdorf Pass per Email. Dieser inkludiert kostenloses Busfahren und viele Vergünstigungen auf Attraktionen.</p>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- ========== BOOKING CTA ========== -->
+<section class="book reveal">
+  <div class="book__media">
+    <img src="assets/images/hero/Allgäu_Oberstdorf_Tiefenbach_Weidach_Unterkunft_Ferienwohnung_Breitachklamm_5.webp" alt="" loading="lazy" />
+  </div>
+  <div class="book__panel">
+    <p class="book__eyebrow">Direkt buchen · Zimmer Enzian</p>
+    <h2 class="book__title">Ab 53 €<br><em>die Nacht.</em></h2>
+    <p class="book__sub">Direkt beim Gastgeber buchen — ohne Plattformgebühren. Die günstigsten Preise, die du für dieses Haus findest.</p>
+    <a class="book__btn" href="https://www.oberstdorf.de/partner/leonie-pinn.html" target="_blank" rel="noopener">
+      <span>Verfügbarkeit prüfen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot" id="contact">
+  <div class="foot__grid">
+    <div class="foot__brand">
+      <img class="foot__logo" src="assets/images/logo/leos_bergwelt_logo_freigestellt.png" alt="Leos Bergwelt" />
+      <p class="foot__tag"><em>Leos Bergwelt.</em> Entspannte Urlaubstage in den Bergen um Oberstdorf. Drei liebevoll gestaltete Zimmer für deinen perfekten Urlaub in Tiefenbach bei Oberstdorf.</p>
+    </div>
+    <div class="foot__col-nav">
+      <span class="foot__h">Besuchen</span>
+      <a href="zimmer.html">Die Zimmer</a>
+      <a href="index.html#region">Die Region</a>
+      <a href="index.html#book">Preise &amp; Buchung</a>
+      <a href="#">Gutscheine</a>
+    </div>
+    <div class="foot__col-nav">
+      <span class="foot__h">Kontakt</span>
+      <a href="mailto:info@leos-bergwelt.de">info@leos-bergwelt.de</a>
+      <a href="tel:+491234567890">+49 123 456 789</a>
+    </div>
+    <div class="foot__col-nav">
+      <span class="foot__h">Adresse</span>
+      <span style="color:var(--ink-soft);font-size:14px;line-height:1.65;">Tiefenbach<br>87561 Oberstdorf<br>Deutschland</span>
+    </div>
+  </div>
+  <div class="foot__base">
+    <span>© 2025 Leos Bergwelt</span>
+    <span>·</span>
+    <span>Gebaut in den Bergen, gepflegt per Hand.</span>
+    <span class="foot__spacer"></span>
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+  </div>
+</footer>
+
+</main>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+}, { passive: true });
+if (window.scrollY > 40) nav.classList.add('nav--scrolled');
+
+// Gallery thumbnail switcher
+const leadImg = document.getElementById('leadImg');
+const leadContainer = document.getElementById('galleryLead');
+const thumbs = document.querySelectorAll('#galleryGrid .gallery__thumb');
+const galleryIdx = document.getElementById('galleryIdx');
+
+thumbs.forEach((thumb, i) => {
+  thumb.addEventListener('click', () => {
+    const src = thumb.querySelector('img').src;
+    const alt = thumb.querySelector('img').alt;
+    const isPortrait = thumb.dataset.portrait === 'true';
+    leadImg.style.opacity = '0';
+    setTimeout(() => {
+      leadImg.src = src;
+      leadImg.alt = alt;
+      leadImg.style.opacity = '1';
+      // Portrait images get 3:4 lead container, landscape stay 4:3
+      leadContainer.classList.toggle('gallery__lead--portrait', isPortrait);
+    }, 200);
+    thumbs.forEach(t => t.classList.remove('is-active'));
+    thumb.classList.add('is-active');
+    galleryIdx.textContent = i + 1;
+  });
+});
+
+// Reveal on scroll
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Mobile menu
+const burger = document.getElementById('navBurger');
+const mobileMenu = document.getElementById('mobileMenu');
+const openMenu = () => {
+  mobileMenu.classList.add('is-open'); burger.classList.add('is-open');
+  burger.setAttribute('aria-expanded', 'true'); burger.setAttribute('aria-label', 'Menü schließen');
+  mobileMenu.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+};
+const closeMenu = () => {
+  mobileMenu.classList.remove('is-open'); burger.classList.remove('is-open');
+  burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Menü öffnen');
+  mobileMenu.setAttribute('aria-hidden', 'true'); document.body.style.overflow = '';
+};
+burger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
+mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// Accordion (Hinweise)
+document.querySelectorAll('.notes__item-head').forEach(head => {
+  const item = head.closest('.notes__item');
+  head.addEventListener('click', () => {
+    const isOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.notes__item').forEach(i => {
+      i.classList.remove('is-open');
+      i.querySelector('.notes__item-head').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('is-open');
+      head.setAttribute('aria-expanded', 'true');
+    }
+  });
+  head.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); head.click(); }
+  });
+});
+</script>
+</body>
+</html>
