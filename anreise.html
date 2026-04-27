@@ -590,8 +590,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 
 @media (max-width: 768px) {
-  .nav__links, .nav__cta { display: none; }
+  .nav__links { display: none; }
+  .nav__cta { margin-left: auto; }
   .nav__burger { display: flex; }
+  .nav__cta span { display: none; }
+  .nav__cta { padding: 9px 12px; }
   .arrival-overview { grid-template-columns: 1fr; gap: 40px; }
   .transport__cards { grid-template-columns: 1fr; }
   .map-section { grid-template-columns: 1fr; }
@@ -621,8 +624,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <a href="ueber-uns.html">Über uns</a>
       <a href="kontakt.html">Kontakt</a>
     </nav>
-    <a class="nav__cta" href="kontakt.html">
-      <span>Anfragen</span>
+    <a class="nav__cta" href="index.html#book">
+      <span>Buchen</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
@@ -644,8 +647,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
     <div class="mobile-menu__item"><a class="mobile-menu__link" href="kontakt.html">Kontakt</a></div>
   </nav>
   <div class="mobile-menu__foot">
-    <a class="mobile-menu__cta" href="kontakt.html">
-      <span>Anfragen</span>
+    <a class="mobile-menu__cta" href="index.html#book">
+      <span>Verfügbarkeit prüfen</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <span class="mobile-menu__loc">Oberstdorf, Allgäu</span>
