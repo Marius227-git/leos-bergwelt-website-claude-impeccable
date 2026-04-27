@@ -121,8 +121,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   pointer-events: none;
   display: flex; flex-direction: column;
   justify-content: flex-start;
-  padding: max(120px, 18vh) var(--pad) clamp(40px, 8vw, 80px);
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 88px var(--pad) clamp(40px, 8vw, 80px);
+  overflow: hidden;
 }
 .mobile-menu.is-open { clip-path: circle(200% at calc(100% - 38px) 38px); pointer-events: all; }
 .mobile-menu__nav { display: flex; flex-direction: column; gap: 4px; margin-bottom: clamp(40px, 8vw, 64px); }
@@ -851,13 +851,13 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_7.webp" alt="Zitronenfalter 7" loading="lazy" /></div>
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_8.webp" alt="Zitronenfalter 8" loading="lazy" /></div>
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_9.webp" alt="Zitronenfalter 9" loading="lazy" /></div>
-      <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_10.webp" alt="Zitronenfalter 10" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_10.webp" alt="Zitronenfalter 10" loading="lazy" /></div>
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_11.webp" alt="Zitronenfalter 11" loading="lazy" /></div>
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_12.webp" alt="Zitronenfalter 12" loading="lazy" /></div>
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_13.webp" alt="Zitronenfalter 13" loading="lazy" /></div>
       <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_14.webp" alt="Zitronenfalter 14" loading="lazy" /></div>
-      <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_15.webp" alt="Zitronenfalter 15" loading="lazy" /></div>
-      <div class="gallery__thumb"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_16.webp" alt="Zitronenfalter 16" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_15.webp" alt="Zitronenfalter 15" loading="lazy" /></div>
+      <div class="gallery__thumb" data-portrait="true"><img src="assets/images/room_zitronenfalter/leos_bergwelt_ferienwohnung_oberstdorf_tiefenbach_zitronenfalter_16.webp" alt="Zitronenfalter 16" loading="lazy" /></div>
     </div>
     <p class="gallery__counter"><span id="galleryIdx">1</span> / 16</p>
   </div>
@@ -906,7 +906,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
       </li>
       <li class="ri__feature">
         <span class="rf__label">Highlight</span>
-        <span class="rf__val rf__val--highlight">Balkon mit Alpenglühen-Blick</span>
+        <span class="rf__val rf__val--highlight">Alpenglühen vom Balkon aus</span>
       </li>
     </ul>
     <div class="ri__price">

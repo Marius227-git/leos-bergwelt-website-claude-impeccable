@@ -119,8 +119,8 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   pointer-events: none;
   display: flex; flex-direction: column;
   justify-content: flex-start;
-  padding: max(120px, 18vh) var(--pad) clamp(40px, 8vw, 80px);
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 88px var(--pad) clamp(40px, 8vw, 80px);
+  overflow: hidden;
 }
 .mobile-menu.is-open { clip-path: circle(200% at calc(100% - 38px) 38px); pointer-events: all; }
 .mobile-menu__nav { display: flex; flex-direction: column; gap: 4px; margin-bottom: clamp(40px, 8vw, 64px); }
@@ -393,6 +393,50 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .shared__card-desc {
   font-size: 14px; line-height: 1.68; color: oklch(0.88 0.01 85 / .6);
 }
+
+/* ===== CARD SLIDER (Bad) ===== */
+.card-slider {
+  position: relative;
+  aspect-ratio: 4 / 3; border-radius: 3px; overflow: hidden;
+  background: oklch(0.10 0.02 145);
+}
+.card-slider__track {
+  display: flex; width: 100%; height: 100%;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.card-slider__track::-webkit-scrollbar { display: none; }
+.card-slider__slide {
+  flex: 0 0 100%; height: 100%; scroll-snap-align: center; overflow: hidden;
+}
+.card-slider__slide img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.8s var(--ease); opacity: .9;
+}
+.card-slider:hover .card-slider__slide img { transform: scale(1.04); opacity: 1; }
+.card-slider__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 30px; height: 30px; border-radius: 50%;
+  background: oklch(0.97 0.01 85 / .88); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  color: oklch(0.18 0.012 150); z-index: 2; padding: 0;
+  transition: background .2s, opacity .25s;
+  opacity: 0; pointer-events: none;
+}
+.card-slider:hover .card-slider__arrow:not(:disabled) { opacity: 1; pointer-events: all; }
+.card-slider__arrow:disabled { opacity: 0 !important; pointer-events: none; }
+.card-slider__arrow--prev { left: 8px; }
+.card-slider__arrow--next { right: 8px; }
+.card-slider__dots {
+  position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 5px; z-index: 2;
+}
+.card-slider__dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: oklch(0.97 0.01 85 / .45); padding: 0; border: none; cursor: pointer;
+  transition: background .2s, width .22s ease, border-radius .22s ease;
+}
+.card-slider__dot.active { background: oklch(0.97 0.01 85); width: 18px; border-radius: 3px; }
 
 /* ===== BOOKING CTA ===== */
 .book {
@@ -814,8 +858,21 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
         <p class="shared__card-desc">Vollausgestattet mit Herd, Backofen, Kühlschrank, Tiefkühlschrank, Kaffeemaschine und allerlei Küchenutensilien. Alles, was ihr fürs Kochen braucht.</p>
       </div>
       <div class="shared__card reveal">
-        <div class="shared__img">
-          <img src="assets/images/bathroom/IMG_9658.webp" alt="Gemeinschaftsbad" loading="lazy" />
+        <div class="card-slider" id="badSlider">
+          <div class="card-slider__track" id="badTrack">
+            <div class="card-slider__slide"><img src="assets/images/bathroom/IMG_9658.webp" alt="Gemeinschaftsbad" loading="lazy" /></div>
+            <div class="card-slider__slide"><img src="assets/images/extra_toilet/IMG_9745.webp" alt="Gäste-WC" loading="lazy" /></div>
+          </div>
+          <button class="card-slider__arrow card-slider__arrow--prev" disabled aria-label="Vorheriges Bild">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="card-slider__arrow card-slider__arrow--next" aria-label="Nächstes Bild">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <div class="card-slider__dots">
+            <button class="card-slider__dot active" data-idx="0" aria-label="Bild 1"></button>
+            <button class="card-slider__dot" data-idx="1" aria-label="Bild 2"></button>
+          </div>
         </div>
         <h3 class="shared__card-title">Bad &amp; Gäste-WC</h3>
         <p class="shared__card-desc">Modernes Bad mit Dusche und WC — und ein zusätzliches Gäste-WC als Ausweichmöglichkeit. Wenn das Bad belegt ist, kein Problem: einfach ausweichen auf das extra Gäste-WC.</p>
@@ -940,6 +997,40 @@ const closeMenu = () => {
 burger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
 mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// Bad & Gäste-WC card slider
+(function() {
+  const track = document.getElementById('badTrack');
+  const wrapper = document.getElementById('badSlider');
+  if (!track) return;
+  const total = track.children.length;
+  let current = 0;
+  const dots = wrapper.querySelectorAll('.card-slider__dot');
+  const prevBtn = wrapper.querySelector('.card-slider__arrow--prev');
+  const nextBtn = wrapper.querySelector('.card-slider__arrow--next');
+  const updateUI = (idx) => {
+    current = Math.max(0, Math.min(idx, total - 1));
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
+  };
+  const goTo = (idx) => {
+    idx = Math.max(0, Math.min(idx, total - 1));
+    track.scrollTo({ left: idx * (track.scrollWidth / total), behavior: 'smooth' });
+    updateUI(idx);
+  };
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+  let t;
+  track.addEventListener('scroll', () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      updateUI(Math.round(track.scrollLeft / (track.scrollWidth / total)));
+    }, 80);
+  }, { passive: true });
+  updateUI(0);
+})();
 </script>
 </body>
 </html>
