@@ -513,9 +513,6 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .nav__links { display: none; }
-  .nav__cta { margin-left: auto; }
-  .nav__burger { display: flex; }
   .room-section__inner { grid-template-columns: 1fr; }
   .room-section__inner--reverse .room-section__gallery,
   .room-section__inner--reverse .room-section__info { order: unset; }
@@ -523,6 +520,11 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   .shared__grid { grid-template-columns: 1fr 1fr; }
   .foot__grid { grid-template-columns: 1fr 1fr; }
   .facts-bar__grid { grid-template-columns: repeat(2, auto); gap: clamp(28px, 5vw, 48px); }
+}
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .nav__cta { margin-left: auto; }
+  .nav__burger { display: flex; }
 }
 @media (max-width: 680px) {
   .nav__cta span { display: none; }
