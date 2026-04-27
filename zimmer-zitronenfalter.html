@@ -1221,8 +1221,7 @@ const closeMenu = () => {
 };
 burger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
 mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
-// Block iOS touch-scroll inside menu
-mobileMenu.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+const blockScroll = e => e.preventDefault();
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
