@@ -121,7 +121,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   pointer-events: none;
   display: flex; flex-direction: column;
   justify-content: flex-start;
-  padding: 88px var(--pad) clamp(40px, 8vw, 80px);
+  padding: 116px var(--pad) clamp(40px, 8vw, 80px);
   overflow: hidden;
 }
 .mobile-menu.is-open { clip-path: circle(200% at calc(100% - 38px) 38px); pointer-events: all; }
@@ -1219,6 +1219,9 @@ const closeMenu = () => {
 };
 burger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu());
 mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+// Block iOS touch-scroll inside menu
+mobileMenu.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
 // Reviews mobile slider (scroll-snap)

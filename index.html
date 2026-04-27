@@ -140,7 +140,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   pointer-events: none;
   display: flex; flex-direction: column;
   justify-content: flex-start;
-  padding: 88px var(--pad) clamp(40px, 8vw, 80px);
+  padding: 116px var(--pad) clamp(40px, 8vw, 80px);
   overflow: hidden;
 }
 .mobile-menu.is-open {
@@ -1611,6 +1611,9 @@ mobileMenu.querySelectorAll('a').forEach(link => {
 });
 
 // Close on Escape key
+// Block iOS touch-scroll inside menu
+mobileMenu.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
 });
